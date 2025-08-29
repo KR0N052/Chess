@@ -86,19 +86,70 @@ CMakeFiles/server.dir/backend/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/backend/main.cpp.s"
 	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\main.cpp -o CMakeFiles\server.dir\backend\main.cpp.s
 
+CMakeFiles/server.dir/backend/logic/Board.cpp.obj: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/backend/logic/Board.cpp.obj: CMakeFiles/server.dir/includes_CXX.rsp
+CMakeFiles/server.dir/backend/logic/Board.cpp.obj: C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Board.cpp
+CMakeFiles/server.dir/backend/logic/Board.cpp.obj: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/server.dir/backend/logic/Board.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/backend/logic/Board.cpp.obj -MF CMakeFiles\server.dir\backend\logic\Board.cpp.obj.d -o CMakeFiles\server.dir\backend\logic\Board.cpp.obj -c C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp
+
+CMakeFiles/server.dir/backend/logic/Board.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/backend/logic/Board.cpp.i"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp > CMakeFiles\server.dir\backend\logic\Board.cpp.i
+
+CMakeFiles/server.dir/backend/logic/Board.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/backend/logic/Board.cpp.s"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp -o CMakeFiles\server.dir\backend\logic\Board.cpp.s
+
+CMakeFiles/server.dir/backend/logic/Game.cpp.obj: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/backend/logic/Game.cpp.obj: CMakeFiles/server.dir/includes_CXX.rsp
+CMakeFiles/server.dir/backend/logic/Game.cpp.obj: C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Game.cpp
+CMakeFiles/server.dir/backend/logic/Game.cpp.obj: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/server.dir/backend/logic/Game.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/backend/logic/Game.cpp.obj -MF CMakeFiles\server.dir\backend\logic\Game.cpp.obj.d -o CMakeFiles\server.dir\backend\logic\Game.cpp.obj -c C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Game.cpp
+
+CMakeFiles/server.dir/backend/logic/Game.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/backend/logic/Game.cpp.i"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Game.cpp > CMakeFiles\server.dir\backend\logic\Game.cpp.i
+
+CMakeFiles/server.dir/backend/logic/Game.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/backend/logic/Game.cpp.s"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Game.cpp -o CMakeFiles\server.dir\backend\logic\Game.cpp.s
+
+CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj: CMakeFiles/server.dir/flags.make
+CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj: CMakeFiles/server.dir/includes_CXX.rsp
+CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj: C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/MoveValidator.cpp
+CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj: CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj -MF CMakeFiles\server.dir\backend\logic\MoveValidator.cpp.obj.d -o CMakeFiles\server.dir\backend\logic\MoveValidator.cpp.obj -c C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\MoveValidator.cpp
+
+CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.i"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\MoveValidator.cpp > CMakeFiles\server.dir\backend\logic\MoveValidator.cpp.i
+
+CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.s"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\MoveValidator.cpp -o CMakeFiles\server.dir\backend\logic\MoveValidator.cpp.s
+
 # Object files for target server
 server_OBJECTS = \
-"CMakeFiles/server.dir/backend/main.cpp.obj"
+"CMakeFiles/server.dir/backend/main.cpp.obj" \
+"CMakeFiles/server.dir/backend/logic/Board.cpp.obj" \
+"CMakeFiles/server.dir/backend/logic/Game.cpp.obj" \
+"CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj"
 
 # External object files for target server
 server_EXTERNAL_OBJECTS =
 
 server.exe: CMakeFiles/server.dir/backend/main.cpp.obj
+server.exe: CMakeFiles/server.dir/backend/logic/Board.cpp.obj
+server.exe: CMakeFiles/server.dir/backend/logic/Game.cpp.obj
+server.exe: CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj
 server.exe: CMakeFiles/server.dir/build.make
 server.exe: CMakeFiles/server.dir/linkLibs.rsp
 server.exe: CMakeFiles/server.dir/objects1.rsp
 server.exe: CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable server.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable server.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\server.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
