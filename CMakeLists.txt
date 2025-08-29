@@ -5,8 +5,14 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
 
-add_executable(server backend/main.cpp)
+add_executable(server
+    backend/main.cpp
+    backend/logic/Board.cpp
+    backend/logic/Game.cpp
+    backend/logic/MoveValidator.cpp
+)
 
 target_link_libraries(server PRIVATE ws2_32 mswsock)
 
 target_link_libraries(server PRIVATE pthread ws2_32)
+

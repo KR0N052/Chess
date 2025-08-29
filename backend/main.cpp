@@ -1,87 +1,88 @@
-#include "crow.h"
-#include <iostream>
-#include <vector>
-#include <string>
-#include <unordered_map>
+﻿#include "crow.h"
+#include "logic/Game.h"
+#include <nlohmann/json.hpp>
 #include <fstream>
 #include <sstream>
 
-// 8x8 sakktábla: minden mező egy string (pl. "wP", "bK", "")
-std::vector<std::vector<std::string>> board(8, std::vector<std::string>(8, ""));
+using json = nlohmann::json;
 
-// Koordináta átalakítása (pl. "e2" → [6][4])
-std::pair<int, int> coordToIndex(const std::string& coord) {
-    std::unordered_map<char, int> colMap = {
-        {'a', 0}, {'b', 1}, {'c', 2}, {'d', 3},
-        {'e', 4}, {'f', 5}, {'g', 6}, {'h', 7}
-    };
-    int col = colMap[coord[0]];
-    int row = 8 - (coord[1] - '0'); // 0-indexelt sor
-    return { row, col };
-}
-
-// Alapállás beállítása
-void initializeBoard() {
-    // Fehér bábuk
-    board[7] = { "wR", "wR", "wB", "wQ", "wK", "wB", "wN", "wR" };
-    board[6] = std::vector<std::string>(8, "wP");
-
-    // Fekete bábuk
-    board[0] = { "bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR" };
-    board[1] = std::vector<std::string>(8, "bP");
-
-    // Üres sorok középen
-    for (int r = 2; r <= 5; r++) {
-        board[r] = std::vector<std::string>(8, "");
+json boardToJson(const Board& board) {
+    json jBoard = json::array();
+    for (int r = 0; r < 8; r++) {
+        json row = json::array();
+        for (int c = 0; c < 8; c++) {
+            const Piece& p = board.getPiece(r, c);
+            json cell;
+            cell["type"] = static_cast<int>(p.type);
+            cell["color"] = static_cast<int>(p.color);
+            row.push_back(cell);
+        }
+        jBoard.push_back(row);
     }
+    return jBoard;
 }
 
-int main()
-{
+// Segédfüggvény fájl beolvasásához
+crow::response serveFile(const std::string& path, const std::string& contentType = "text/html") {
+    std::ifstream in(path, std::ios::binary);
+    if (!in) {
+        return crow::response(404);
+    }
+    std::ostringstream contents;
+    contents << in.rdbuf();
+    crow::response res(contents.str());
+    res.set_header("Content-Type", contentType);
+    return res;
+}
+
+int main() {
     crow::SimpleApp app;
-    initializeBoard();
+    Game game;
 
-    // Végpont: teljes tábla JSON-ban
-    CROW_ROUTE(app, "/board")
+    // Gyökér oldal (index.html)
+    CROW_ROUTE(app, "/")
         ([]() {
-        crow::json::wvalue jsonBoard;
-        for (int r = 0; r < 8; r++) {
-            for (int c = 0; c < 8; c++) {
-                jsonBoard[r][c] = board[r][c];
-            }
-        }
-        return jsonBoard;
+        return serveFile("../frontend/index.html");
             });
 
-    // Végpont: kattintás kezelése
-    CROW_ROUTE(app, "/click/<string>").methods(crow::HTTPMethod::POST)
-        ([](const crow::request& /*req*/, std::string coord) {
-        auto [row, col] = coordToIndex(coord);
-        std::string piece = board[row][col];
-
-        std::cout << "Kattintott mező: " << coord;
-        if (!piece.empty()) {
-            std::cout << " → Bábú: " << piece;
-        }
-        else {
-            std::cout << " → Üres mező";
-        }
-        std::cout << std::endl;
-
-        return crow::response(200);
+    CROW_ROUTE(app, "/state")
+        ([&]() {
+        json response;
+        response["board"] = boardToJson(game.getBoard());
+        response["currentPlayer"] = static_cast<int>(game.getCurrentPlayer());
+        return crow::response{ response.dump() };
             });
 
-    // Statikus fájlok kiszolgálása (frontend mappa)
-    app.route_dynamic("/frontend/<path>")
-        ([](const crow::request& /*req*/, std::string path) {
-        std::string fullPath = "../frontend/" + path;
-        std::ifstream file(fullPath, std::ios::binary);
-        if (!file) {
-            return crow::response(404);
-        }
-        std::ostringstream buf;
-        buf << file.rdbuf();
-        return crow::response(buf.str());
+    // POST /move → lépés végrehajtása
+    CROW_ROUTE(app, "/move").methods("POST"_method)
+        ([&](const crow::request& req) {
+        auto body = json::parse(req.body);
+        int fr = body["fromRow"];
+        int fc = body["fromCol"];
+        int tr = body["toRow"];
+        int tc = body["toCol"];
+
+        Move move(fr, fc, tr, tc);
+        bool ok = game.makeMove(move);
+
+        json response;
+        response["success"] = ok;
+        response["board"] = boardToJson(game.getBoard());
+        response["currentPlayer"] = static_cast<int>(game.getCurrentPlayer());
+
+        return crow::response{ response.dump() };
+            });
+
+    // Frontend fájlok kiszolgálása (például build után)
+    CROW_ROUTE(app, "/frontend/<path>")
+        ([](const std::string& filePath) {
+        std::string fullPath = "../frontend/" + filePath; // build-ből kilépünk egy szintet
+        std::ifstream in(fullPath, std::ios::binary);
+        if (!in) return crow::response(404);
+
+        std::ostringstream contents;
+        contents << in.rdbuf();
+        return crow::response{ contents.str() };
             });
 
     app.port(18080).multithreaded().run();
