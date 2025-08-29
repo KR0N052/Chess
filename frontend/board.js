@@ -1,38 +1,24 @@
-﻿// Sakktábla létrehozása
-const chessboard = document.getElementById("chessboard");
-const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+﻿async function drawBoard() {
+    const res = await fetch('/board');
+    const board = await res.json();
 
-for (let row = 8; row >= 1; row--) {
-    for (let col = 0; col < 8; col++) {
-        const square = document.createElement("div");
-        square.classList.add("square");
-        // Színezés
-        if ((row + col) % 2 === 0) {
-            square.classList.add("white");
-        } else {
-            square.classList.add("black");
+    for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+            const coord = String.fromCharCode(97 + col) + (8 - row);
+            const cell = document.querySelector(`[data-coord="${coord}"]`);
+            const piece = board[row][col];
+            cell.textContent = pieceToUnicode(piece);
         }
-        // Koordináta hozzárendelése
-        const coord = columns[col] + row;
-        square.dataset.coord = coord;
-        square.innerText = coord;
-
-        // Kattintás esemény
-        square.addEventListener("click", () => {
-            console.log("Kattintott mező:", coord);
-
-            // Adat küldése backendnek
-            fetch(`/click/${coord}`, { method: "POST" })
-                .then(res => {
-                    if (res.ok) {
-                        console.log("Koordináta elküldve:", coord);
-                    } else {
-                        console.error("Hiba a küldés közben");
-                    }
-                })
-                .catch(err => console.error("Fetch hiba:", err));
-        });
-
-        chessboard.appendChild(square);
     }
 }
+
+function pieceToUnicode(piece) {
+    const map = {
+        "bR": "♜", "bN": "♞", "bB": "♝", "bQ": "♛", "bK": "♚", "bP": "♟",
+        "wR": "♖", "wN": "♘", "wB": "♗", "wQ": "♕", "wK": "♔", "wP": "♙",
+        "": ""
+    };
+    return map[piece] || "";
+}
+
+drawBoard();

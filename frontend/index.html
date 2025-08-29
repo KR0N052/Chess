@@ -2,30 +2,26 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Sakktábla</title>
+    <title>Sakk tábla</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             display: flex;
             justify-content: center;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
-        #chessboard {
-            border: 2px solid black;
-            display: grid;
-            grid-template-columns: repeat(8, 60px);
-            grid-template-rows: repeat(8, 60px);
+        table {
+            border-collapse: collapse;
         }
 
-        .square {
+        td {
             width: 60px;
             height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 40px;
             cursor: pointer;
-            user-select: none;
         }
 
         .white {
@@ -38,9 +34,57 @@
     </style>
 </head>
 <body>
+    <table id="chessboard"></table>
 
-    <div id="chessboard"></div>
+    <script>
+        const pieceMap = {
+            "bR": "♜", "bN": "♞", "bB": "♝", "bQ": "♛", "bK": "♚", "bP": "♟",
+            "wR": "♖", "wN": "♘", "wB": "♗", "wQ": "♕", "wK": "♔", "wP": "♙",
+            "": ""
+        };
 
-    <script src="board.js"></script>
+        async function loadBoard() {
+            try {
+                // Ha a HTML-t a C++ szerver szolgálja ki:
+                const res = await fetch('/board');
+
+                // Ha máshonnan nyitod meg a HTML-t (pl. file://), akkor így:
+                // const res = await fetch('http://localhost:18080/board');
+
+                if (!res.ok) throw new Error("Nem sikerült lekérni a táblát");
+                const board = await res.json();
+                drawBoard(board);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function drawBoard(board) {
+            const table = document.getElementById('chessboard');
+            table.innerHTML = '';
+
+            for (let row = 0; row < 8; row++) {
+                const tr = document.createElement('tr');
+                for (let col = 0; col < 8; col++) {
+                    const td = document.createElement('td');
+                    td.className = (row + col) % 2 === 0 ? 'white' : 'black';
+                    td.dataset.coord = String.fromCharCode(97 + col) + (8 - row);
+                    td.textContent = pieceMap[board[row][col]] || '';
+                    td.addEventListener('click', () => clickSquare(td.dataset.coord));
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+        }
+
+        async function clickSquare(coord) {
+            console.log("Kattintott mező:", coord);
+            await fetch(`/click/${coord}`, { method: 'POST' });
+            // Ha szeretnéd, kattintás után újratöltjük a táblát:
+            // loadBoard();
+        }
+
+        loadBoard();
+    </script>
 </body>
 </html>
