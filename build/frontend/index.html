@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Sakk</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .white {
+            background-color: #f0d9b5;
+        }
+
+        .black {
+            background-color: #b58863;
+        }
+
+        #status {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="status">Betöltés...</div>
+    <table id="chessboard"></table>
+
+    <script>
+        const pieceMap = {
+            // Fekete
+            "0_1": "♚", // King
+            "1_1": "♛", // Queen
+            "2_1": "♜", // Rook
+            "3_1": "♝", // Bishop
+            "4_1": "♞", // Knight
+            "5_1": "♟", // Pawn
+            // Fehér
+            "0_0": "♔",
+            "1_0": "♕",
+            "2_0": "♖",
+            "3_0": "♗",
+            "4_0": "♘",
+            "5_0": "♙",
+            // Üres
+            "None_None": ""
+        };
+
+        let selectedCell = null;
+
+        async function loadBoard() {
+            const res = await fetch('/state');
+            const data = await res.json();
+            drawBoard(data.board);
+            document.getElementById('status').textContent =
+                data.currentPlayer === 0 ? "Fehér következik" : "Fekete következik";
+        }
+
+        function drawBoard(board) {
+            const table = document.getElementById('chessboard');
+            table.innerHTML = '';
+
+            for (let r = 0; r < 8; r++) {
+                const tr = document.createElement('tr');
+                for (let c = 0; c < 8; c++) {
+                    const td = document.createElement('td');
+                    td.className = (r + c) % 2 === 0 ? 'white' : 'black';
+                    td.dataset.row = r;
+                    td.dataset.col = c;
+
+                    const type = board[r][c].type;
+                    const color = board[r][c].color;
+                    const key = `${type}_${color}`;
+                    td.textContent = pieceMap[key] || '';
+
+                    td.addEventListener('click', () => handleClick(td));
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+        }
+
+        async function handleClick(cell) {
+            if (!selectedCell) {
+                selectedCell = cell;
+                cell.style.outline = '3px solid red';
+            } else {
+                const move = {
+                    fromRow: parseInt(selectedCell.dataset.row),
+                    fromCol: parseInt(selectedCell.dataset.col),
+                    toRow: parseInt(cell.dataset.row),
+                    toCol: parseInt(cell.dataset.col)
+                };
+                selectedCell.style.outline = '';
+                selectedCell = null;
+
+                const res = await fetch('/move', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(move)
+                });
+                const data = await res.json();
+                if (!data.success) {
+                    alert("Érvénytelen lépés!");
+                }
+                drawBoard(data.board);
+                document.getElementById('status').textContent =
+                    data.currentPlayer === 0 ? "Fehér következik" : "Fekete következik";
+            }
+        }
+
+        loadBoard();
+    </script>
+</body>
+</html>

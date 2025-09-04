@@ -128,30 +128,6 @@ server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-backend/logic/Board.obj: backend/logic/Board.cpp.obj
-.PHONY : backend/logic/Board.obj
-
-# target to build an object file
-backend/logic/Board.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Board.cpp.obj
-.PHONY : backend/logic/Board.cpp.obj
-
-backend/logic/Board.i: backend/logic/Board.cpp.i
-.PHONY : backend/logic/Board.i
-
-# target to preprocess a source file
-backend/logic/Board.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Board.cpp.i
-.PHONY : backend/logic/Board.cpp.i
-
-backend/logic/Board.s: backend/logic/Board.cpp.s
-.PHONY : backend/logic/Board.s
-
-# target to generate assembly for a file
-backend/logic/Board.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Board.cpp.s
-.PHONY : backend/logic/Board.cpp.s
-
 backend/logic/Game.obj: backend/logic/Game.cpp.obj
 .PHONY : backend/logic/Game.obj
 
@@ -175,30 +151,6 @@ backend/logic/Game.s: backend/logic/Game.cpp.s
 backend/logic/Game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.s
 .PHONY : backend/logic/Game.cpp.s
-
-backend/logic/MoveValidator.obj: backend/logic/MoveValidator.cpp.obj
-.PHONY : backend/logic/MoveValidator.obj
-
-# target to build an object file
-backend/logic/MoveValidator.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.obj
-.PHONY : backend/logic/MoveValidator.cpp.obj
-
-backend/logic/MoveValidator.i: backend/logic/MoveValidator.cpp.i
-.PHONY : backend/logic/MoveValidator.i
-
-# target to preprocess a source file
-backend/logic/MoveValidator.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.i
-.PHONY : backend/logic/MoveValidator.cpp.i
-
-backend/logic/MoveValidator.s: backend/logic/MoveValidator.cpp.s
-.PHONY : backend/logic/MoveValidator.s
-
-# target to generate assembly for a file
-backend/logic/MoveValidator.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/MoveValidator.cpp.s
-.PHONY : backend/logic/MoveValidator.cpp.s
 
 backend/main.obj: backend/main.cpp.obj
 .PHONY : backend/main.obj
@@ -233,15 +185,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... server
-	@echo ... backend/logic/Board.obj
-	@echo ... backend/logic/Board.i
-	@echo ... backend/logic/Board.s
 	@echo ... backend/logic/Game.obj
 	@echo ... backend/logic/Game.i
 	@echo ... backend/logic/Game.s
-	@echo ... backend/logic/MoveValidator.obj
-	@echo ... backend/logic/MoveValidator.i
-	@echo ... backend/logic/MoveValidator.s
 	@echo ... backend/main.obj
 	@echo ... backend/main.i
 	@echo ... backend/main.s

@@ -1,16 +1,17 @@
 #pragma once
 #include "Board.h"
-#include "MoveValidator.h"
+#include "Piece.h"
+#include "Move.h"
 
 class Game {
-public:
-    Game();
-    bool makeMove(const Move& move);
-    const Board& getBoard() const;
-    Color getCurrentPlayer() const;
-
 private:
     Board board;
-    Color currentPlayer;
-    void switchPlayer();
+    Color currentTurn;
+
+public:
+    Game();
+    void resetBoard();
+    bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
+    Color getCurrentTurn() const;
+    const Board& getBoard() const;
 };
