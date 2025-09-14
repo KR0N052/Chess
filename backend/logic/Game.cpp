@@ -1,58 +1,78 @@
 #include "Game.h"
-#include "King.h"
-// Ha a többi bábu még nem lett átalakítva, akkor a régi PieceType/Color enumokat is be lehet húzni
-#include <algorithm>
-#include <stdexcept>
+#include "pieces/Piece.h"
+#include "pieces/Rook.h"
+#include "pieces/Knight.h"
+#include "pieces/Bishop.h"
+#include "pieces/Queen.h"
+#include "pieces/King.h"
+#include "pieces/Pawn.h"
+#include <memory> // std::shared_ptr, std::make_shared
 
 Game::Game() {
     resetBoard();
-    currentTurn = Color::White;
 }
 
 void Game::resetBoard() {
-    // Tábla ürítése
-    for (int r = 0; r < 8; ++r) {
-        for (int c = 0; c < 8; ++c) {
-            board.setPiece(r, c, nullptr);
-        }
+    board.clear();
+
+    // --- Fehér bábuk ---
+    board.setPiece(0, 0, std::make_shared<Rook>(Color::White));
+    board.setPiece(0, 1, std::make_shared<Knight>(Color::White));
+    board.setPiece(0, 2, std::make_shared<Bishop>(Color::White));
+    board.setPiece(0, 3, std::make_shared<Queen>(Color::White));
+    board.setPiece(0, 4, std::make_shared<King>(Color::White));
+    board.setPiece(0, 5, std::make_shared<Bishop>(Color::White));
+    board.setPiece(0, 6, std::make_shared<Knight>(Color::White));
+    board.setPiece(0, 7, std::make_shared<Rook>(Color::White));
+
+    for (int col = 0; col < 8; ++col) {
+        board.setPiece(1, col, std::make_shared<Pawn>(Color::White));
     }
 
-    // Királyok elhelyezése az új logikával
-    board.setPiece(0, 4, std::make_shared<King>(Color::White));
+    // --- Fekete bábuk ---
+    board.setPiece(7, 0, std::make_shared<Rook>(Color::Black));
+    board.setPiece(7, 1, std::make_shared<Knight>(Color::Black));
+    board.setPiece(7, 2, std::make_shared<Bishop>(Color::Black));
+    board.setPiece(7, 3, std::make_shared<Queen>(Color::Black));
     board.setPiece(7, 4, std::make_shared<King>(Color::Black));
+    board.setPiece(7, 5, std::make_shared<Bishop>(Color::Black));
+    board.setPiece(7, 6, std::make_shared<Knight>(Color::Black));
+    board.setPiece(7, 7, std::make_shared<Rook>(Color::Black));
 
-    // A többi bábu ideiglenesen maradhat a régi rendszerben
-    // Például: gyalogok, bástyák, stb. — itt majd később cseréljük le őket
+    for (int col = 0; col < 8; ++col) {
+        board.setPiece(6, col, std::make_shared<Pawn>(Color::Black));
+    }
+
+    // Fehér kezd
+    currentTurn = Color::White;
 }
 
 bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     auto piece = board.getPiece(fromRow, fromCol);
-    if (!piece) {
-        return false; // nincs bábu ezen a mezőn
-    }
+    if (!piece) return false; // nincs bábu ezen a mezőn
 
+    // 1. Ellenőrzés: csak a soron következő játékos léphet
     if (piece->getColor() != currentTurn) {
-        return false; // nem a soron következő játékos bábuját próbálja mozgatni
+        return false;
     }
 
-    // Új logika: a bábu maga adja vissza a lehetséges lépéseit
-    auto possibleMoves = piece->getPossibleMoves(board, fromRow, fromCol);
-
-    bool found = std::any_of(possibleMoves.begin(), possibleMoves.end(),
-        [&](const Move& m) {
-            return m.toRow == toRow && m.toCol == toCol;
-        });
-
-    if (!found) {
-        return false; // érvénytelen lépés
+    // 2. Megnézzük, hogy a lépés benne van-e a bábu lehetséges lépéseiben
+    auto moves = piece->getPossibleMoves(board, fromRow, fromCol);
+    bool validMove = false;
+    for (const auto& move : moves) {
+        if (move.toRow == toRow && move.toCol == toCol) {
+            validMove = true;
+            break;
+        }
     }
+    if (!validMove) return false;
 
-    // Lépés végrehajtása
-    board.setPiece(toRow, toCol, piece);
-    board.setPiece(fromRow, fromCol, nullptr);
+    // 3. Lépés végrehajtása
+    board.movePiece(fromRow, fromCol, toRow, toCol);
 
-    // Körváltás
+    // 4. Játékosváltás
     currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
+
     return true;
 }
 

@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Piece.h"
 #include "Move.h"
+#define EMPTY 0
 
 class Game {
 private:

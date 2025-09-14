@@ -20,6 +20,11 @@ set(HEADERS
     backend/logic/Move.h
     backend/logic/pieces/Piece.h
     backend/logic/pieces/King.h
+    backend/logic/pieces/Pawn.h
+    backend/logic/pieces/Bishop.h
+    backend/logic/pieces/Rook.h
+    backend/logic/pieces/Queen.h
+    backend/logic/pieces/Knight.h
 )
 
 # Crow és nlohmann/json include mappák

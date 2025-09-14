@@ -3,6 +3,8 @@
 #include "Move.h"
 
 enum class Color { White, Black };
+enum class PieceType { King, Queen, Bishop, Knight, Rook, Pawn };
+
 
 class Board; // előre deklarálás
 

@@ -1,6 +1,11 @@
 ﻿#include "crow.h"
 #include "logic/Game.h"
 #include "logic/pieces/King.h"
+#include "logic/pieces/Rook.h"
+#include "logic/pieces/Knight.h"
+#include "logic/pieces/Bishop.h"
+#include "logic/pieces/Queen.h"
+#include "logic/pieces/Pawn.h"
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <sstream>
@@ -20,11 +25,27 @@ json boardToJson(const Board& board) {
                 cell["color"] = (piece->getColor() == Color::White) ? 0 : 1;
                 // Típus — egyelőre csak a királyt különböztetjük meg
                 if (dynamic_cast<const King*>(piece.get())) {
-                    cell["type"] = 0; // 0 = King
+                    cell["type"] = 0;
+                }
+                else if (dynamic_cast<const Queen*>(piece.get())) {
+                    cell["type"] = 1;
+                }
+                else if (dynamic_cast<const Rook*>(piece.get())) {
+                    cell["type"] = 2;
+                }
+                else if (dynamic_cast<const Bishop*>(piece.get())) {
+                    cell["type"] = 3;
+                }
+                else if (dynamic_cast<const Knight*>(piece.get())) {
+                    cell["type"] = 4;
+                }
+                else if (dynamic_cast<const Pawn*>(piece.get())) {
+                    cell["type"] = 5;
                 }
                 else {
-                    cell["type"] = -1; // egyéb bábu (még régi logika)
+                    cell["type"] = -1;
                 }
+
             }
             else {
                 cell["color"] = 2; // None
