@@ -69,7 +69,7 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
 
     // 3. Lépés végrehajtása
     board.movePiece(fromRow, fromCol, toRow, toCol);
-
+    
     // 4. Játékosváltás
     currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
 

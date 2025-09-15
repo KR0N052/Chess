@@ -5,7 +5,9 @@
 
 class Queen : public Piece {
 public:
-    Queen(Color c) : Piece(c) {}
+    Queen(Color c) : Piece(c) {
+        ID = 'q';
+    }
 
     std::vector<Move> getPossibleMoves(const Board& board, int row, int col) const override {
         std::vector<Move> moves;

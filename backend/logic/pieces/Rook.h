@@ -5,7 +5,9 @@
 
 class Rook : public Piece {
 public:
-    Rook(Color c) : Piece(c) {}
+    Rook(Color c) : Piece(c) {
+        ID = 'r';
+    }
 
     std::vector<Move> getPossibleMoves(const Board& board, int row, int col) const override {
         std::vector<Move> moves;
