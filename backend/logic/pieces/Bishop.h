@@ -5,8 +5,10 @@
 
 class Bishop : public Piece {
 public:
-    Bishop(Color c) : Piece(c) {
-        ID = 'b';
+    Bishop(Color c) : Piece(c) {}
+
+    PieceType getType() const override {
+        return PieceType::Bishop;
     }
 
     std::vector<Move> getPossibleMoves(const Board& board, int row, int col) const override {
@@ -31,6 +33,9 @@ public:
                 c += d[1];
             }
         }
+
+        
+
         return moves;
     }
 };

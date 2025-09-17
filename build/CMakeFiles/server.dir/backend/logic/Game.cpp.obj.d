@@ -118,4 +118,26 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Bishop.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Queen.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/King.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Pawn.h
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Pawn.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cmath \
+ C:/msys64/ucrt64/include/math.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/std_abs.h \
+ C:/msys64/ucrt64/include/stdlib.h \
+ C:/msys64/ucrt64/include/sec_api/stdlib_s.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/stdlib.h \
+ C:/msys64/ucrt64/include/malloc.h \
+ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/limits \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/gamma.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/special_function_util.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/bessel_function.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/beta_function.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/ell_integral.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/exp_integral.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/hypergeometric.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/legendre_function.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/modified_bessel_func.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_hermite.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_laguerre.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/riemann_zeta.tcc

@@ -5,8 +5,10 @@
 
 class Knight : public Piece {
 public:
-    Knight(Color c) : Piece(c) {
-        ID = 'n';
+    Knight(Color c) : Piece(c) {}
+
+    PieceType getType() const override {
+        return PieceType::Knight;
     }
 
     std::vector<Move> getPossibleMoves(const Board& board, int row, int col) const override {
@@ -26,6 +28,7 @@ public:
                 }
             }
         }
+
         return moves;
     }
 };

@@ -4,10 +4,17 @@
 #include "Board.h"
 
 class Rook : public Piece {
+private:
+	bool moved = false;
 public:
-    Rook(Color c) : Piece(c) {
-        ID = 'r';
+    Rook(Color c) : Piece(c) {}
+
+    PieceType getType() const override {
+        return PieceType::Rook;
     }
+
+    bool hasMoved() const { return moved; }
+    void setMoved(bool m) { moved = m; }
 
     std::vector<Move> getPossibleMoves(const Board& board, int row, int col) const override {
         std::vector<Move> moves;
@@ -31,6 +38,7 @@ public:
                 c += d[1];
             }
         }
+        
         return moves;
     }
 };

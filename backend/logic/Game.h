@@ -15,4 +15,5 @@ public:
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
     Color getCurrentTurn() const;
     const Board& getBoard() const;
+    bool wouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
 };

@@ -7,10 +7,11 @@ class Pawn : public Piece {
 private:
     bool moved = false;
 public:
-    Pawn(Color c) : Piece(c) {
-        ID = 'p';
-    }
+    Pawn(Color c) : Piece(c) {}
 
+    PieceType getType() const override {
+        return PieceType::Pawn;
+    }
 
     std::vector<Move> getPossibleMoves(const Board& board, int row, int col) const override {
         std::vector<Move> moves;
@@ -40,6 +41,8 @@ public:
                 }
             }
         }
+
+ 
 
         return moves;
     }
