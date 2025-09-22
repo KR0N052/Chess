@@ -9,9 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SOURCES
     backend/main.cpp
     backend/logic/Game.cpp
-    # Ha lesz más bábuosztály, ide add hozzá:
-    # backend/logic/pieces/Rook.cpp
-    # backend/logic/pieces/Bishop.cpp
 )
 
 set(HEADERS

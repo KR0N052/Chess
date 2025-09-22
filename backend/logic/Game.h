@@ -4,16 +4,24 @@
 #include "Move.h"
 #define EMPTY 0
 
-class Game {
-private:
-    Board board;
-    Color currentTurn;
 
+
+class Game {
 public:
     Game();
     void resetBoard();
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
+    bool wouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
     Color getCurrentTurn() const;
     const Board& getBoard() const;
-    bool wouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
+
+private:
+    Board board;
+    Color currentTurn;
+
+    struct LastMove {
+        int fromRow, fromCol, toRow, toCol;
+        std::shared_ptr<Piece> piece;
+    };
+    LastMove lastMove;
 };

@@ -9,6 +9,8 @@
             display: flex;
             justify-content: center;
             margin-top: 30px;
+            background-color: #2b2b2b; /* sötétszürke háttér */
+            color: #f0f0f0; /* világos szöveg, hogy jól látszódjon */
         }
 
         table {
@@ -22,6 +24,7 @@
             vertical-align: middle;
             font-size: 40px;
             cursor: pointer;
+            color: black; /* vagy black */
         }
 
         .white {
@@ -38,43 +41,74 @@
             left: 10px;
             font-size: 18px;
         }
+
+        .log-panel {
+            margin-left: 20px;
+            width: 200px;
+            height: 500px;
+            background: #3a3a3a; /* sötétebb szürke */
+            border: 1px solid #666;
+            padding: 8px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+            color: white; /* világos szöveg */
+        }
+
+        .log-panel .move {
+            color: white;
+        }
+
+        .log-panel .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        #resetBtn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div id="status">Betöltés...</div>
     <table id="chessboard"></table>
+    <div id="log-panel" class="log-panel"></div>
+    <button id="resetBtn">Új játék</button>
 
     <script>
         const pieceMap = {
-            // Fekete
-            "0_1": "♚", // King
-            "1_1": "♛", // Queen
-            "2_1": "♜", // Rook
-            "3_1": "♝", // Bishop
-            "4_1": "♞", // Knight
-            "5_1": "♟", // Pawn
-            // Fehér
-            "0_0": "♔",
-            "1_0": "♕",
-            "2_0": "♖",
-            "3_0": "♗",
-            "4_0": "♘",
-            "5_0": "♙",
-            // Üres
+            "0_1": "♚", "1_1": "♛", "2_1": "♜", "3_1": "♝", "4_1": "♞", "5_1": "♟",
+            "0_0": "♔", "1_0": "♕", "2_0": "♖", "3_0": "♗", "4_0": "♘", "5_0": "♙",
             "None_None": ""
         };
 
         let selectedCell = null;
 
         async function loadBoard() {
-            const res = await fetch('/state');
-            const data = await res.json();
-            drawBoard(data.board);
-            document.getElementById('status').textContent =
-                data.currentPlayer === 0 ? "Fehér következik" : "Fekete következik";
+            try {
+                const res = await fetch('/state', { cache: 'no-store' });
+                const text = await res.text();
+                console.log('GET /state raw:', text);
+                const data = JSON.parse(text);
+
+                drawBoard(data.board);
+                updateStatus(data.currentPlayer);
+            } catch (err) {
+                console.error('State fetch error:', err);
+                logMessage('Hiba: nem sikerült betölteni az állást', 'error');
+            }
         }
 
         function drawBoard(board) {
+            if (!Array.isArray(board) || board.length !== 8) {
+                console.warn('drawBoard: invalid board payload:', board);
+                return;
+            }
             const table = document.getElementById('chessboard');
             table.innerHTML = '';
 
@@ -86,8 +120,9 @@
                     td.dataset.row = r;
                     td.dataset.col = c;
 
-                    const type = board[r][c].type;
-                    const color = board[r][c].color;
+                    const cell = board[r][c];
+                    const type = cell?.type;
+                    const color = cell?.color;
                     const key = `${type}_${color}`;
                     td.textContent = pieceMap[key] || '';
 
@@ -102,30 +137,77 @@
             if (!selectedCell) {
                 selectedCell = cell;
                 cell.style.outline = '3px solid red';
-            } else {
-                const move = {
-                    fromRow: parseInt(selectedCell.dataset.row),
-                    fromCol: parseInt(selectedCell.dataset.col),
-                    toRow: parseInt(cell.dataset.row),
-                    toCol: parseInt(cell.dataset.col)
-                };
-                selectedCell.style.outline = '';
-                selectedCell = null;
+                return;
+            }
 
+            const move = {
+                fromRow: parseInt(selectedCell.dataset.row, 10),
+                fromCol: parseInt(selectedCell.dataset.col, 10),
+                toRow: parseInt(cell.dataset.row, 10),
+                toCol: parseInt(cell.dataset.col, 10)
+            };
+            selectedCell.style.outline = '';
+            selectedCell = null;
+
+            try {
                 const res = await fetch('/move', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    cache: 'no-store',
                     body: JSON.stringify(move)
                 });
-                const data = await res.json();
+                const text = await res.text();
+                console.log('POST /move raw:', text);
+                const data = JSON.parse(text);
+
                 if (!data.success) {
-                    alert("Érvénytelen lépés!");
+                    logMessage('Hiba: ' + (data.error || 'Érvénytelen lépés'), 'error');
+                } else {
+                    logMessage(data.moveCode || 'Lépés megtörtént', 'move');
                 }
+
                 drawBoard(data.board);
-                document.getElementById('status').textContent =
-                    data.currentPlayer === 0 ? "Fehér következik" : "Fekete következik";
+                updateStatus(data.currentPlayer);
+            } catch (err) {
+                console.error('Move fetch error:', err);
+                logMessage('Hiba: szerver nem elérhető', 'error');
             }
         }
+
+        function updateStatus(currentPlayer) {
+            const el = document.getElementById('status');
+            el.textContent = currentPlayer === 0 ? 'Fehér következik' : 'Fekete következik';
+        }
+
+        function logMessage(message, type = 'move') {
+            const panel = document.getElementById('log-panel');
+            if (!panel) return;
+            const entry = document.createElement('div');
+            entry.className = type;
+            entry.textContent = message;
+            panel.appendChild(entry);
+            panel.scrollTop = panel.scrollHeight;
+        }
+
+        // Reset gomb eseménykezelő
+        document.getElementById("resetBtn").addEventListener("click", async () => {
+            try {
+                const res = await fetch("/reset", { method: "POST" });
+                const text = await res.text();
+                console.log("POST /reset raw:", text);
+                const data = JSON.parse(text);
+
+                drawBoard(data.board);
+                updateStatus(data.currentPlayer);
+
+                // log törlése
+                document.getElementById("log-panel").innerHTML = "";
+                logMessage("Új játék kezdődött", "move");
+            } catch (err) {
+                console.error("Reset error:", err);
+                logMessage("Hiba: nem sikerült új játékot indítani", "error");
+            }
+        });
 
         loadBoard();
     </script>
