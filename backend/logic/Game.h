@@ -2,6 +2,8 @@
 #include "Board.h"
 #include "Piece.h"
 #include "Move.h"
+#include <optional>
+
 #define EMPTY 0
 
 
@@ -14,14 +16,22 @@ public:
     bool wouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
     Color getCurrentTurn() const;
     const Board& getBoard() const;
+    std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
 private:
     Board board;
     Color currentTurn;
+    std::pair<int, int> whiteKingPos;
+    std::pair<int, int> blackKingPos;
 
-    struct LastMove {
-        int fromRow, fromCol, toRow, toCol;
-        std::shared_ptr<Piece> piece;
-    };
-    LastMove lastMove;
+    std::optional<std::pair<int, int>> enPassantTarget;
+
+    void addCastlingMoves(int row, int col, std::vector<Move>& moves) const;
+    void addEnPassantMoves(int row, int col, std::vector<Move>& moves) const;
+    void addPromotionMoves(std::vector<Move>& moves) const;
+
+    // aktív bábuk listája
+    std::vector<std::shared_ptr<Piece>> whitePieces;
+    std::vector<std::shared_ptr<Piece>> blackPieces;
+
 };
