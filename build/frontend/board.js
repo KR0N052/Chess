@@ -58,6 +58,16 @@ async function handleClick(row, col, cell) {
             logMessage(data.moveCode || "lépés", "move");
         }
 
+        if (data.gameOver) {
+            if (data.reason === "checkmate") {
+                logMessage("Sakkmatt! " + data.winner + " nyert.", "move");
+                document.getElementById("status").textContent = "Játék vége";
+            } else if (data.reason === "stalemate") {
+                logMessage("Patt! Döntetlen.", "move");
+                document.getElementById("status").textContent = "Játék vége";
+            }
+        }
+
         drawBoard(data.board);
         updateStatus(data.currentPlayer);
     }

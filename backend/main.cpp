@@ -96,6 +96,19 @@ int main() {
         if (ok) {
             std::string moveCode = coordToAlgebraic(fr, fc) + coordToAlgebraic(tr, tc);
             response["moveCode"] = moveCode;
+
+            // --- ÚJ: játék vége ellenőrzés ---
+            if (game.isCheckmate()) {
+                std::cout << "DEBUG: Checkmate detected!\n";
+                response["gameOver"] = true;
+                response["reason"] = "checkmate";
+                response["winner"] = (game.getCurrentTurn() == Color::White) ? "Black" : "White";
+            }
+            else if (game.isStalemate()) {
+                response["gameOver"] = true;
+                response["reason"] = "stalemate";
+                response["winner"] = "draw";
+            }
         }
         else {
             response["error"] = "Érvénytelen lépés";
@@ -106,6 +119,7 @@ int main() {
         res.set_header("Cache-Control", "no-store");
         return res;
         });
+
 
     // POST /reset → új játék
     CROW_ROUTE(app, "/reset").methods("POST"_method)([&]() {

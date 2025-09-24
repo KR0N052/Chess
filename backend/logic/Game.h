@@ -13,13 +13,21 @@ public:
     Game();
     void resetBoard();
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
-    bool wouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
+
+
     Color getCurrentTurn() const;
     const Board& getBoard() const;
     std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
+	bool isCheckmate() const;
+	bool isStalemate() const;
+
 private:
-    Board board;
+    bool fastWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
+    bool safeWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
+    bool isSquareAttacked(const Board& b, int row, int col, Color defender) const;
+
+    mutable Board board;
     Color currentTurn;
     std::pair<int, int> whiteKingPos;
     std::pair<int, int> blackKingPos;
@@ -30,8 +38,10 @@ private:
     void addEnPassantMoves(int row, int col, std::vector<Move>& moves) const;
     void addPromotionMoves(std::vector<Move>& moves) const;
 
-    // aktív bábuk listája
-    std::vector<std::shared_ptr<Piece>> whitePieces;
-    std::vector<std::shared_ptr<Piece>> blackPieces;
+    //aktív bábúk koorddinátái
+    std::vector<std::pair<int, int>> whitePieceSquares;
+    std::vector<std::pair<int, int>> blackPieceSquares;
+
+
 
 };

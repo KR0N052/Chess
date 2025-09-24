@@ -164,10 +164,23 @@
                     logMessage('Hiba: ' + (data.error || 'Érvénytelen lépés'), 'error');
                 } else {
                     logMessage(data.moveCode || 'Lépés megtörtént', 'move');
+
+                    // --- ÚJ: játék vége ellenőrzés ---
+                    if (data.gameOver) {
+                        if (data.reason === "checkmate") {
+                            logMessage("Sakkmatt! " + data.winner + " nyert.", "move");
+                            document.getElementById("status").textContent = "Játék vége";
+                        } else if (data.reason === "stalemate") {
+                            logMessage("Patt! Döntetlen.", "move");
+                            document.getElementById("status").textContent = "Játék vége";
+                        }
+                        return; // ne írja felül az updateStatus
+                    }
                 }
 
                 drawBoard(data.board);
                 updateStatus(data.currentPlayer);
+
             } catch (err) {
                 console.error('Move fetch error:', err);
                 logMessage('Hiba: szerver nem elérhető', 'error');

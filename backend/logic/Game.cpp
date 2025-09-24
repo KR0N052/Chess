@@ -11,6 +11,7 @@
 #include <memory>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 
 // ---------------- Implementáció ----------------
@@ -21,83 +22,72 @@ Game::Game() {
 
 void Game::resetBoard() {
     board.clear();
-    whitePieces.clear();
-    blackPieces.clear();
+    whitePieceSquares.clear();
+    blackPieceSquares.clear();
 
     // --- Fekete bábuk felül ---
-    auto bKing = std::make_shared<King>(Color::Black);
-    board.setPiece(0, 4, bKing);
-    blackPieces.push_back(bKing); // király mindig első
+    board.setPiece(0, 4, std::make_shared<King>(Color::Black));
+    blackPieceSquares.push_back({ 0, 4 }); // király mindig első
 
-    auto bQueen = std::make_shared<Queen>(Color::Black);
-    board.setPiece(0, 3, bQueen);
-    blackPieces.push_back(bQueen);
+    board.setPiece(0, 3, std::make_shared<Queen>(Color::Black));
+    blackPieceSquares.push_back({ 0, 3 });
 
-    auto bRookA = std::make_shared<Rook>(Color::Black);
-    auto bRookH = std::make_shared<Rook>(Color::Black);
-    board.setPiece(0, 0, bRookA);
-    board.setPiece(0, 7, bRookH);
-    blackPieces.push_back(bRookA);
-    blackPieces.push_back(bRookH);
+    board.setPiece(0, 0, std::make_shared<Rook>(Color::Black));
+    board.setPiece(0, 7, std::make_shared<Rook>(Color::Black));
+    blackPieceSquares.push_back({ 0, 0 });
+    blackPieceSquares.push_back({ 0, 7 });
 
-    auto bKnightB = std::make_shared<Knight>(Color::Black);
-    auto bKnightG = std::make_shared<Knight>(Color::Black);
-    board.setPiece(0, 1, bKnightB);
-    board.setPiece(0, 6, bKnightG);
-    blackPieces.push_back(bKnightB);
-    blackPieces.push_back(bKnightG);
+    board.setPiece(0, 1, std::make_shared<Knight>(Color::Black));
+    board.setPiece(0, 6, std::make_shared<Knight>(Color::Black));
+    blackPieceSquares.push_back({ 0, 1 });
+    blackPieceSquares.push_back({ 0, 6 });
 
-    auto bBishopC = std::make_shared<Bishop>(Color::Black);
-    auto bBishopF = std::make_shared<Bishop>(Color::Black);
-    board.setPiece(0, 2, bBishopC);
-    board.setPiece(0, 5, bBishopF);
-    blackPieces.push_back(bBishopC);
-    blackPieces.push_back(bBishopF);
+    board.setPiece(0, 2, std::make_shared<Bishop>(Color::Black));
+    board.setPiece(0, 5, std::make_shared<Bishop>(Color::Black));
+    blackPieceSquares.push_back({ 0, 2 });
+    blackPieceSquares.push_back({ 0, 5 });
 
     for (int col = 0; col < 8; ++col) {
-        auto pawn = std::make_shared<Pawn>(Color::Black);
-        board.setPiece(1, col, pawn);
-        blackPieces.push_back(pawn);
+        board.setPiece(1, col, std::make_shared<Pawn>(Color::Black));
+        blackPieceSquares.push_back({ 1, col });
     }
 
     // --- Fehér bábuk alul ---
-    auto wKing = std::make_shared<King>(Color::White);
-    board.setPiece(7, 4, wKing);
-    whitePieces.push_back(wKing); // király mindig első
+    board.setPiece(7, 4, std::make_shared<King>(Color::White));
+    whitePieceSquares.push_back({ 7, 4 }); // király mindig első
 
-    auto wQueen = std::make_shared<Queen>(Color::White);
-    board.setPiece(7, 3, wQueen);
-    whitePieces.push_back(wQueen);
+    board.setPiece(7, 3, std::make_shared<Queen>(Color::White));
+    whitePieceSquares.push_back({ 7, 3 });
 
-    auto wRookA = std::make_shared<Rook>(Color::White);
-    auto wRookH = std::make_shared<Rook>(Color::White);
-    board.setPiece(7, 0, wRookA);
-    board.setPiece(7, 7, wRookH);
-    whitePieces.push_back(wRookA);
-    whitePieces.push_back(wRookH);
+    board.setPiece(7, 0, std::make_shared<Rook>(Color::White));
+    board.setPiece(7, 7, std::make_shared<Rook>(Color::White));
+    whitePieceSquares.push_back({ 7, 0 });
+    whitePieceSquares.push_back({ 7, 7 });
 
-    auto wKnightB = std::make_shared<Knight>(Color::White);
-    auto wKnightG = std::make_shared<Knight>(Color::White);
-    board.setPiece(7, 1, wKnightB);
-    board.setPiece(7, 6, wKnightG);
-    whitePieces.push_back(wKnightB);
-    whitePieces.push_back(wKnightG);
+    board.setPiece(7, 1, std::make_shared<Knight>(Color::White));
+    board.setPiece(7, 6, std::make_shared<Knight>(Color::White));
+    whitePieceSquares.push_back({ 7, 1 });
+    whitePieceSquares.push_back({ 7, 6 });
 
-    auto wBishopC = std::make_shared<Bishop>(Color::White);
-    auto wBishopF = std::make_shared<Bishop>(Color::White);
-    board.setPiece(7, 2, wBishopC);
-    board.setPiece(7, 5, wBishopF);
-    whitePieces.push_back(wBishopC);
-    whitePieces.push_back(wBishopF);
+    board.setPiece(7, 2, std::make_shared<Bishop>(Color::White));
+    board.setPiece(7, 5, std::make_shared<Bishop>(Color::White));
+    whitePieceSquares.push_back({ 7, 2 });
+    whitePieceSquares.push_back({ 7, 5 });
 
     for (int col = 0; col < 8; ++col) {
-        auto pawn = std::make_shared<Pawn>(Color::White);
-        board.setPiece(6, col, pawn);
-        whitePieces.push_back(pawn);
+        board.setPiece(6, col, std::make_shared<Pawn>(Color::White));
+        whitePieceSquares.push_back({ 6, col });
     }
 
     // Fehér kezd
     currentTurn = Color::White;
+
+    // Királypozíciók inicializálása
+    whiteKingPos = { 7, 4 };
+    blackKingPos = { 0, 4 };
+
+    // En passant reset
+    enPassantTarget.reset();
 }
 
 
@@ -121,11 +111,11 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     }
     if (!found) return false;
 
-    // 3. Ha van fogás, töröljük a captured bábut a vektorból
+    // 3. Ha van fogás, töröljük a captured koordinátát a listából
     auto captured = board.getPiece(toRow, toCol);
     if (captured && !chosenMove.isEnPassant) {
-        auto& vec = (captured->getColor() == Color::White) ? whitePieces : blackPieces;
-        vec.erase(std::remove(vec.begin(), vec.end(), captured), vec.end());
+        auto& vec = (captured->getColor() == Color::White) ? whitePieceSquares : blackPieceSquares;
+        vec.erase(std::remove(vec.begin(), vec.end(), std::make_pair(toRow, toCol)), vec.end());
     }
 
     // 4. Végrehajtás
@@ -133,8 +123,20 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
         int dir = (toCol > fromCol) ? 1 : -1;
         int rookCol = (dir == 1) ? 7 : 0;
         int rookTargetCol = fromCol + dir;
+
         board.movePiece(fromRow, fromCol, toRow, toCol);             // király
         board.movePiece(fromRow, rookCol, fromRow, rookTargetCol);   // bástya
+
+        // koordinátalisták frissítése
+        auto& kingVec = (piece->getColor() == Color::White) ? whitePieceSquares : blackPieceSquares;
+        auto& rookVec = kingVec;
+        // király koordinátájának átírása
+        auto it = std::find(kingVec.begin(), kingVec.end(), std::make_pair(fromRow, fromCol));
+        if (it != kingVec.end()) *it = { toRow, toCol };
+        // bástya koordinátájának átírása
+        auto itR = std::find(rookVec.begin(), rookVec.end(), std::make_pair(fromRow, rookCol));
+        if (itR != rookVec.end()) *itR = { fromRow, rookTargetCol };
+
         auto king = std::dynamic_pointer_cast<King>(board.getPiece(toRow, toCol));
         if (king) king->setMoved(true);
         auto rook = std::dynamic_pointer_cast<Rook>(board.getPiece(fromRow, rookTargetCol));
@@ -143,15 +145,26 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     else if (chosenMove.isEnPassant) {
         board.movePiece(fromRow, fromCol, toRow, toCol);
         int capturedRow = (piece->getColor() == Color::White) ? toRow + 1 : toRow - 1;
+
         auto epCaptured = board.getPiece(capturedRow, toCol);
         if (epCaptured) {
-            auto& vec = (epCaptured->getColor() == Color::White) ? whitePieces : blackPieces;
-            vec.erase(std::remove(vec.begin(), vec.end(), epCaptured), vec.end());
+            auto& vec = (epCaptured->getColor() == Color::White) ? whitePieceSquares : blackPieceSquares;
+            vec.erase(std::remove(vec.begin(), vec.end(), std::make_pair(capturedRow, toCol)), vec.end());
         }
         board.setPiece(capturedRow, toCol, nullptr);
+
+        // lépő bábu koordinátájának frissítése
+        auto& moverVec = (piece->getColor() == Color::White) ? whitePieceSquares : blackPieceSquares;
+        auto it = std::find(moverVec.begin(), moverVec.end(), std::make_pair(fromRow, fromCol));
+        if (it != moverVec.end()) *it = { toRow, toCol };
     }
     else {
         board.movePiece(fromRow, fromCol, toRow, toCol);
+
+        // lépő bábu koordinátájának frissítése
+        auto& moverVec = (piece->getColor() == Color::White) ? whitePieceSquares : blackPieceSquares;
+        auto it = std::find(moverVec.begin(), moverVec.end(), std::make_pair(fromRow, fromCol));
+        if (it != moverVec.end()) *it = { toRow, toCol };
     }
 
     // 5. Promóció (fixen vezér)
@@ -161,12 +174,8 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
         if (toRow == promotionRow) {
             auto newQueen = std::make_shared<Queen>(movedPiece->getColor());
             board.setPiece(toRow, toCol, newQueen);
-
-            auto& vec = (newQueen->getColor() == Color::White) ? whitePieces : blackPieces;
-            vec.erase(std::remove(vec.begin(), vec.end(), movedPiece), vec.end());
-            vec.push_back(newQueen);
-
             movedPiece = newQueen;
+            // koordinátalistában nem kell változtatni, mert a mező ugyanaz
         }
     }
 
@@ -184,6 +193,7 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
         }
     }
 
+    // 7. En passant target
     enPassantTarget.reset();
     if (movedPiece && movedPiece->getType() == PieceType::Pawn) {
         if (std::abs(toRow - fromRow) == 2) {
@@ -192,10 +202,21 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
         }
     }
 
-    // 7. Következő játékos
+    // 8. Következő játékos
     currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
+
+    //if (isCheckmate()) {
+    //    std::cout << "Checkmate! "
+    //        << ((currentTurn == Color::White) ? "Black" : "White")
+    //        << " wins.\n";
+    //}
+    //else if (isStalemate()) {
+    //    std::cout << "Stalemate! Draw.\n";
+    //}
+
     return true;
 }
+
 
 
 
@@ -207,24 +228,34 @@ std::vector<Move> Game::getLegalMoves(int fromRow, int fromCol) const {
     // 1. pszeudo-lépések a bábutól
     auto pseudoMoves = piece->getPossibleMoves(board, fromRow, fromCol);
 
-    // 2. szűrés sakk ellen
-    for (const auto& move : pseudoMoves) {
-        if (!wouldBeInCheckAfterMove(fromRow, fromCol, move.toRow, move.toCol)) {
-            legalMoves.push_back(move);
-        }
-    }
-
     // speciális lépések csak ha kell
     switch (piece->getType()) {
     case PieceType::King:
-        addCastlingMoves(fromRow, fromCol, legalMoves);
+        addCastlingMoves(fromRow, fromCol, pseudoMoves);
         break;
     case PieceType::Pawn:
-        addEnPassantMoves(fromRow, fromCol, legalMoves);
-        addPromotionMoves(legalMoves);
+        addEnPassantMoves(fromRow, fromCol, pseudoMoves);
+        addPromotionMoves(pseudoMoves);
         break;
     default:
         break;
+    }
+
+    // 2. szűrés sakk ellen
+    for (const auto& move : pseudoMoves) {
+        if (move.isEnPassant || move.isPromotion()) {
+            if (!safeWouldBeInCheckAfterMove(fromRow, fromCol, move.toRow, move.toCol)) {
+				legalMoves.push_back(move);
+            }
+        }
+        else if (move.isCastle) {
+			legalMoves.push_back(move); // sáncolásnál már ellenőriztük a sakkot (neki spéci szabály van)
+        }
+        else{
+            if (!fastWouldBeInCheckAfterMove(fromRow, fromCol, move.toRow, move.toCol)) {
+                legalMoves.push_back(move);
+            }
+        }
     }
 
     return legalMoves;
@@ -255,7 +286,7 @@ void Game::addCastlingMoves(int row, int col, std::vector<Move>& moves) const {
         bool safe = true;
         for (int step = 0; step <= 2; step++) {
             int checkCol = col + step * dir;
-            if (wouldBeInCheckAfterMove(row, col, row, checkCol)) {
+            if (safeWouldBeInCheckAfterMove(row, col, row, checkCol)) {
                 safe = false; break;
             }
         }
@@ -310,109 +341,119 @@ void Game::addPromotionMoves(std::vector<Move>& moves) const {
 
     // hozzáadjuk a promóciós verziót
     moves.insert(moves.end(), extra.begin(), extra.end());
+
 }
 
+bool Game::fastWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const {
+    auto piece = board.getPiece(fromRow, fromCol);
+    if (!piece) return false;
+    Color movingColor = piece->getColor();
 
-bool Game::wouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const {
-    Board tempBoard = board;
-    tempBoard.movePiece(fromRow, fromCol, toRow, toCol);
+    auto captured = board.getPiece(toRow, toCol);
 
+    // ideiglenesen áthelyezzük a bábut
+    board.setPiece(toRow, toCol, piece);
+    board.setPiece(fromRow, fromCol, nullptr);
+
+    // lokális kingPos számítás
+    std::pair<int, int> kingPos = (movingColor == Color::White) ? whiteKingPos : blackKingPos;
+    if (piece->getType() == PieceType::King) {
+        kingPos = { toRow, toCol };
+    }
+
+    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, movingColor);
+
+    // visszaállítjuk a táblát
+    board.setPiece(fromRow, fromCol, piece);
+    board.setPiece(toRow, toCol, captured);
+
+    return inCheck;
+}
+
+bool Game::safeWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const {
     auto movingPiece = board.getPiece(fromRow, fromCol);
     if (!movingPiece) return false;
     Color movingColor = movingPiece->getColor();
 
-    // kiinduló királypozíció a cache-ből
-    int kingRow, kingCol;
-    if (movingColor == Color::White) {
-        kingRow = whiteKingPos.first;
-        kingCol = whiteKingPos.second;
-    }
-    else {
-        kingRow = blackKingPos.first;
-        kingCol = blackKingPos.second;
-    }
+    Board tempBoard = board;
+    tempBoard.movePiece(fromRow, fromCol, toRow, toCol);
 
-    // ha maga a király lépett, akkor a célmező lesz az új pozíció
-    if (movingPiece->getType() == PieceType::King) {
-        kingRow = toRow;
-        kingCol = toCol;
-    }
+    int kingRow = (movingPiece->getType() == PieceType::King)
+        ? toRow
+        : (movingColor == Color::White ? whiteKingPos.first : blackKingPos.first);
+    int kingCol = (movingPiece->getType() == PieceType::King)
+        ? toCol
+        : (movingColor == Color::White ? whiteKingPos.second : blackKingPos.second);
 
-    // --- Pawn attacks ---
-    int dir = (movingColor == Color::White) ? -1 : 1;
+    return isSquareAttacked(tempBoard, kingRow, kingCol, movingColor);
+}
+
+bool Game::isSquareAttacked(const Board& b, int row, int col, Color defender) const {
+    // Pawn
+    int dir = (defender == Color::White) ? -1 : 1;
     for (int dc : {-1, 1}) {
-        int r = kingRow + dir, c = kingCol + dc;
+        int r = row + dir, c = col + dc;
         if (r >= 0 && r < 8 && c >= 0 && c < 8) {
-            auto p = tempBoard.getPiece(r, c);
-            if (p && p->getColor() != movingColor && p->getType() == PieceType::Pawn) return true;
+            auto p = b.getPiece(r, c);
+            if (p && p->getColor() != defender && p->getType() == PieceType::Pawn) return true;
         }
     }
 
-    // --- Knight attacks ---
-    int knightOffsets[8][2] = {
-        {-2,-1},{-2,1},{-1,-2},{-1,2},
-        {1,-2},{1,2},{2,-1},{2,1}
-    };
+    // Knight
+    int knightOffsets[8][2] = { {-2,-1},{-2,1},{-1,-2},{-1,2},{1,-2},{1,2},{2,-1},{2,1} };
     for (auto& off : knightOffsets) {
-        int r = kingRow + off[0], c = kingCol + off[1];
+        int r = row + off[0], c = col + off[1];
         if (r >= 0 && r < 8 && c >= 0 && c < 8) {
-            auto p = tempBoard.getPiece(r, c);
-            if (p && p->getColor() != movingColor && p->getType() == PieceType::Knight) {
-                return true;
-            }
+            auto p = b.getPiece(r, c);
+            if (p && p->getColor() != defender && p->getType() == PieceType::Knight) return true;
         }
     }
 
-    // --- Bishop / Queen diagonals ---
+    // Bishop / Queen diagonals
     int diagDirs[4][2] = { {1,1},{1,-1},{-1,1},{-1,-1} };
     for (auto& d : diagDirs) {
-        int r = kingRow + d[0], c = kingCol + d[1];
+        int r = row + d[0], c = col + d[1];
         while (r >= 0 && r < 8 && c >= 0 && c < 8) {
-            auto p = tempBoard.getPiece(r, c);
+            auto p = b.getPiece(r, c);
             if (p) {
-                if (p->getColor() != movingColor &&
-                    (p->getType() == PieceType::Bishop || p->getType() == PieceType::Queen)) {
-                    return true;
-                }
+                if (p->getColor() != defender &&
+                    (p->getType() == PieceType::Bishop || p->getType() == PieceType::Queen)) return true;
                 break;
             }
             r += d[0]; c += d[1];
         }
     }
 
-    // --- Rook / Queen lines ---
+    // Rook / Queen lines
     int lineDirs[4][2] = { {1,0},{-1,0},{0,1},{0,-1} };
     for (auto& d : lineDirs) {
-        int r = kingRow + d[0], c = kingCol + d[1];
+        int r = row + d[0], c = col + d[1];
         while (r >= 0 && r < 8 && c >= 0 && c < 8) {
-            auto p = tempBoard.getPiece(r, c);
+            auto p = b.getPiece(r, c);
             if (p) {
-                if (p->getColor() != movingColor &&
-                    (p->getType() == PieceType::Rook || p->getType() == PieceType::Queen)) {
-                    return true;
-                }
+                if (p->getColor() != defender &&
+                    (p->getType() == PieceType::Rook || p->getType() == PieceType::Queen)) return true;
                 break;
             }
             r += d[0]; c += d[1];
         }
     }
 
-    // --- King (szomszédos mezők) ---
+    // King
     for (int dr = -1; dr <= 1; dr++) {
         for (int dc = -1; dc <= 1; dc++) {
             if (dr == 0 && dc == 0) continue;
-            int r = kingRow + dr, c = kingCol + dc;
+            int r = row + dr, c = col + dc;
             if (r >= 0 && r < 8 && c >= 0 && c < 8) {
-                auto p = tempBoard.getPiece(r, c);
-                if (p && p->getColor() != movingColor && p->getType() == PieceType::King) {
-                    return true;
-                }
+                auto p = b.getPiece(r, c);
+                if (p && p->getColor() != defender && p->getType() == PieceType::King) return true;
             }
         }
     }
 
-    return false; // nincs sakk
+    return false;
 }
+
 
 Color Game::getCurrentTurn() const {
 	return currentTurn;
@@ -422,3 +463,44 @@ Color Game::getCurrentTurn() const {
 const Board& Game::getBoard() const {
 	return board;
 }
+
+bool Game::isCheckmate() const {
+    // 1. Aktuális király pozíciója
+    std::pair<int, int> kingPos = (currentTurn == Color::White) ? whiteKingPos : blackKingPos;
+
+    // 2. Sakkban van‑e?
+    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, currentTurn);
+    if (!inCheck) return false;
+
+    // 3. Van‑e legális lépés?
+    const auto& coords = (currentTurn == Color::White) ? whitePieceSquares : blackPieceSquares;
+    for (auto [r, c] : coords) {
+        auto piece = board.getPiece(r, c);
+        if (!piece) continue;
+        auto moves = getLegalMoves(r, c);
+        if (!moves.empty()) return false;
+    }
+
+    return true; // sakkban van és nincs lépés → matt
+}
+
+bool Game::isStalemate() const {
+    // 1. Aktuális király pozíciója
+    std::pair<int, int> kingPos = (currentTurn == Color::White) ? whiteKingPos : blackKingPos;
+
+    // 2. Ha sakkban van, nem lehet pat
+    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, currentTurn);
+    if (inCheck) return false;
+
+    // 3. Van‑e legális lépés?
+    const auto& coords = (currentTurn == Color::White) ? whitePieceSquares : blackPieceSquares;
+    for (auto [r, c] : coords) {
+        auto piece = board.getPiece(r, c);
+        if (!piece) continue;
+        auto moves = getLegalMoves(r, c);
+        if (!moves.empty()) return false;
+    }
+
+    return true; // nincs sakk és nincs lépés → pat
+}
+

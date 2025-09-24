@@ -149,4 +149,46 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/tr1/modified_bessel_func.tcc \
  C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_hermite.tcc \
  C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_laguerre.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/riemann_zeta.tcc
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/riemann_zeta.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/iostream \
+ C:/msys64/ucrt64/include/c++/13.2.0/ostream \
+ C:/msys64/ucrt64/include/c++/13.2.0/ios \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/char_traits.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/localefwd.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/c++locale.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/clocale \
+ C:/msys64/ucrt64/include/locale.h C:/msys64/ucrt64/include/stdio.h \
+ C:/msys64/ucrt64/include/sec_api/stdio_s.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cctype \
+ C:/msys64/ucrt64/include/ctype.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/ios_base.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_classes.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/string \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/ostream_insert.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/cxxabi_forced.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_string.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/string_view \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/string_view.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/ext/string_conversions.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cstdio \
+ C:/msys64/ucrt64/include/c++/13.2.0/cerrno \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/charconv.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_string.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_classes.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/system_error \
+ C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/error_constants.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/stdexcept \
+ C:/msys64/ucrt64/include/c++/13.2.0/streambuf \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/streambuf.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_ios.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_facets.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cwctype \
+ C:/msys64/ucrt64/include/wctype.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_base.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/streambuf_iterator.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_inline.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_facets.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_ios.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/ostream.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/istream \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/istream.tcc
