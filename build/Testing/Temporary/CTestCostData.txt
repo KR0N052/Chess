@@ -1,0 +1,10 @@
+PawnTests 1 0.0552103
+RookTests 1 0.01652
+KnightTests 1 0.0157805
+BishopTests 1 0.0155552
+QueenTests 1 0.017373
+KingTests 1 0.0176362
+CastlingTests 1 0.0570723
+EnPassantTests 1 0.0154116
+PromotionTests 1 0.0162026
+---

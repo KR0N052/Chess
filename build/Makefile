@@ -64,6 +64,16 @@ CMAKE_BINARY_DIR = C:\Users\melch\OneDrive\Desktop\cpp_ketto\build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	"C:\Program Files\CMake\bin\ctest.exe" $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -116,6 +126,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named backend
+
+# Build rule for target.
+backend: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 backend
+.PHONY : backend
+
+# fast build rule for target.
+backend/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/build
+.PHONY : backend/fast
+
+#=============================================================================
 # Target rules for targets named server
 
 # Build rule for target.
@@ -128,11 +151,38 @@ server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/build
 .PHONY : server/fast
 
+#=============================================================================
+# Target rules for targets named basic_piece_tests
+
+# Build rule for target.
+basic_piece_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 basic_piece_tests
+.PHONY : basic_piece_tests
+
+# fast build rule for target.
+basic_piece_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/build
+.PHONY : basic_piece_tests/fast
+
+#=============================================================================
+# Target rules for targets named special_moves_tests
+
+# Build rule for target.
+special_moves_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 special_moves_tests
+.PHONY : special_moves_tests
+
+# fast build rule for target.
+special_moves_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/build
+.PHONY : special_moves_tests/fast
+
 backend/logic/Game.obj: backend/logic/Game.cpp.obj
 .PHONY : backend/logic/Game.obj
 
 # target to build an object file
 backend/logic/Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Game.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.obj
 .PHONY : backend/logic/Game.cpp.obj
 
@@ -141,6 +191,7 @@ backend/logic/Game.i: backend/logic/Game.cpp.i
 
 # target to preprocess a source file
 backend/logic/Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Game.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.i
 .PHONY : backend/logic/Game.cpp.i
 
@@ -149,6 +200,7 @@ backend/logic/Game.s: backend/logic/Game.cpp.s
 
 # target to generate assembly for a file
 backend/logic/Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Game.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.s
 .PHONY : backend/logic/Game.cpp.s
 
@@ -176,6 +228,54 @@ backend/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/main.cpp.s
 .PHONY : backend/main.cpp.s
 
+backend/tests/basic_piece_tests.obj: backend/tests/basic_piece_tests.cpp.obj
+.PHONY : backend/tests/basic_piece_tests.obj
+
+# target to build an object file
+backend/tests/basic_piece_tests.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/backend/tests/basic_piece_tests.cpp.obj
+.PHONY : backend/tests/basic_piece_tests.cpp.obj
+
+backend/tests/basic_piece_tests.i: backend/tests/basic_piece_tests.cpp.i
+.PHONY : backend/tests/basic_piece_tests.i
+
+# target to preprocess a source file
+backend/tests/basic_piece_tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/backend/tests/basic_piece_tests.cpp.i
+.PHONY : backend/tests/basic_piece_tests.cpp.i
+
+backend/tests/basic_piece_tests.s: backend/tests/basic_piece_tests.cpp.s
+.PHONY : backend/tests/basic_piece_tests.s
+
+# target to generate assembly for a file
+backend/tests/basic_piece_tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/backend/tests/basic_piece_tests.cpp.s
+.PHONY : backend/tests/basic_piece_tests.cpp.s
+
+backend/tests/special_moves_tests.obj: backend/tests/special_moves_tests.cpp.obj
+.PHONY : backend/tests/special_moves_tests.obj
+
+# target to build an object file
+backend/tests/special_moves_tests.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/backend/tests/special_moves_tests.cpp.obj
+.PHONY : backend/tests/special_moves_tests.cpp.obj
+
+backend/tests/special_moves_tests.i: backend/tests/special_moves_tests.cpp.i
+.PHONY : backend/tests/special_moves_tests.i
+
+# target to preprocess a source file
+backend/tests/special_moves_tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/backend/tests/special_moves_tests.cpp.i
+.PHONY : backend/tests/special_moves_tests.cpp.i
+
+backend/tests/special_moves_tests.s: backend/tests/special_moves_tests.cpp.s
+.PHONY : backend/tests/special_moves_tests.s
+
+# target to generate assembly for a file
+backend/tests/special_moves_tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/backend/tests/special_moves_tests.cpp.s
+.PHONY : backend/tests/special_moves_tests.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -184,13 +284,23 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... test
+	@echo ... backend
+	@echo ... basic_piece_tests
 	@echo ... server
+	@echo ... special_moves_tests
 	@echo ... backend/logic/Game.obj
 	@echo ... backend/logic/Game.i
 	@echo ... backend/logic/Game.s
 	@echo ... backend/main.obj
 	@echo ... backend/main.i
 	@echo ... backend/main.s
+	@echo ... backend/tests/basic_piece_tests.obj
+	@echo ... backend/tests/basic_piece_tests.i
+	@echo ... backend/tests/basic_piece_tests.s
+	@echo ... backend/tests/special_moves_tests.obj
+	@echo ... backend/tests/special_moves_tests.i
+	@echo ... backend/tests/special_moves_tests.s
 .PHONY : help
 
 

@@ -58,18 +58,25 @@ async function handleClick(row, col, cell) {
             logMessage(data.moveCode || "lépés", "move");
         }
 
-        if (data.gameOver) {
-            if (data.reason === "checkmate") {
-                logMessage("Sakkmatt! " + data.winner + " nyert.", "move");
-                document.getElementById("status").textContent = "Játék vége";
-            } else if (data.reason === "stalemate") {
-                logMessage("Patt! Döntetlen.", "move");
-                document.getElementById("status").textContent = "Játék vége";
-            }
-        }
-
+        console.log("BOARD FROM SERVER:", data.board);
         drawBoard(data.board);
-        updateStatus(data.currentPlayer);
+
+        // várjunk egy frame-et, hogy a DOM tényleg frissüljön
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        if (data.gameOver) {
+            requestAnimationFrame(() => {
+                if (data.reason === "checkmate") {
+                    logMessage("Sakkmatt! " + data.winner + " nyert.", "move");
+                    document.getElementById("status").textContent = "Játék vége";
+                } else if (data.reason === "stalemate") {
+                    logMessage("Patt! Döntetlen.", "move");
+                    document.getElementById("status").textContent = "Játék vége";
+                }
+            });
+        } else {
+            updateStatus(data.currentPlayer);
+        }
     }
 }
 

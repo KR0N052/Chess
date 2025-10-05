@@ -122,5 +122,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/backend.dir/DependInfo.cmake"
   "CMakeFiles/server.dir/DependInfo.cmake"
+  "CMakeFiles/basic_piece_tests.dir/DependInfo.cmake"
+  "CMakeFiles/special_moves_tests.dir/DependInfo.cmake"
   )

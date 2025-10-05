@@ -19,6 +19,69 @@ Game::Game() {
     resetBoard();
 }
 
+void Game::loadPosition(const std::string& position, Color turn) {
+    board.clear();
+    whitePieceSquares.clear();
+    blackPieceSquares.clear();
+
+    checkMate = false;
+    staleMate = false;
+    enPassantTarget.reset();
+
+    whiteKingPos = { -1, -1 };
+    blackKingPos = { -1, -1 };
+
+    std::istringstream iss(position);
+    std::string line;
+    int row = 0;
+
+    while (std::getline(iss, line)) {
+        if (line.empty()) continue;
+
+        std::istringstream lineStream(line);
+        std::string token;
+        int col = 0;
+
+        while (lineStream >> token) {
+            char c = token[0];
+            if (c == '.') {
+                // üres mező
+            }
+            else {
+                Color color = isupper(c) ? Color::White : Color::Black;
+                char pieceChar = static_cast<char>(tolower(c));
+                std::shared_ptr<Piece> piece;
+
+                switch (pieceChar) {
+                case 'k': piece = std::make_shared<King>(color); break;
+                case 'q': piece = std::make_shared<Queen>(color); break;
+                case 'r': piece = std::make_shared<Rook>(color); break;
+                case 'n': piece = std::make_shared<Knight>(color); break;
+                case 'b': piece = std::make_shared<Bishop>(color); break;
+                case 'p': piece = std::make_shared<Pawn>(color); break;
+                default: break;
+                }
+
+                if (piece) {
+                    board.setPiece(row, col, piece);
+
+                    if (color == Color::White) {
+                        whitePieceSquares.push_back({ row, col });
+                        if (pieceChar == 'k') whiteKingPos = { row, col };
+                    }
+                    else {
+                        blackPieceSquares.push_back({ row, col });
+                        if (pieceChar == 'k') blackKingPos = { row, col };
+                    }
+                }
+            }
+            ++col;
+        }
+        ++row;
+    }
+
+    currentTurn = turn;
+}
 
 void Game::resetBoard() {
     board.clear();
@@ -82,6 +145,10 @@ void Game::resetBoard() {
     // Fehér kezd
     currentTurn = Color::White;
 
+	//checkmate, stalemate reset
+	checkMate = false;
+	staleMate = false;
+
     // Királypozíciók inicializálása
     whiteKingPos = { 7, 4 };
     blackKingPos = { 0, 4 };
@@ -95,6 +162,8 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     auto piece = board.getPiece(fromRow, fromCol);
     if (!piece) return false;
     if (piece->getColor() != currentTurn) return false;
+
+	if (checkMate || staleMate) return false; // játék vége után nem lehet lépni
 
     // 1. Legális lépések lekérése
     auto legalMoves = getLegalMoves(fromRow, fromCol);
@@ -111,7 +180,7 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     }
     if (!found) return false;
 
-    // 3. Ha van fogás, töröljük a captured koordinátát a listából
+    // 3. Ha van ütés, töröljük a captured koordinátát a listából
     auto captured = board.getPiece(toRow, toCol);
     if (captured && !chosenMove.isEnPassant) {
         auto& vec = (captured->getColor() == Color::White) ? whitePieceSquares : blackPieceSquares;
@@ -202,28 +271,26 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
         }
     }
 
-    // 8. Következő játékos
-    currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
-
-    //if (isCheckmate()) {
-    //    std::cout << "Checkmate! "
-    //        << ((currentTurn == Color::White) ? "Black" : "White")
-    //        << " wins.\n";
-    //}
-    //else if (isStalemate()) {
-    //    std::cout << "Stalemate! Draw.\n";
-    //}
+    if (isCheckmate()) {
+		checkMate = true;
+    }
+    else if (isStalemate()) {
+		staleMate = true;
+    }else{
+	    updateTurn();
+    }
 
     return true;
 }
 
-
+void Game::updateTurn() {
+    currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
+}
 
 
 std::vector<Move> Game::getLegalMoves(int fromRow, int fromCol) const {
     std::vector<Move> legalMoves;
     auto piece = board.getPiece(fromRow, fromCol);
-    if (!piece || piece->getColor() != currentTurn) return legalMoves;
 
     // 1. pszeudo-lépések a bábutól
     auto pseudoMoves = piece->getPossibleMoves(board, fromRow, fromCol);
@@ -242,6 +309,7 @@ std::vector<Move> Game::getLegalMoves(int fromRow, int fromCol) const {
     }
 
     // 2. szűrés sakk ellen
+    
     for (const auto& move : pseudoMoves) {
         if (move.isEnPassant || move.isPromotion()) {
             if (!safeWouldBeInCheckAfterMove(fromRow, fromCol, move.toRow, move.toCol)) {
@@ -385,6 +453,8 @@ bool Game::safeWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int 
         ? toCol
         : (movingColor == Color::White ? whiteKingPos.second : blackKingPos.second);
 
+	if (kingRow == -1 || kingCol == -1) return false; // tesztekben nem inicializált királypozíció
+    
     return isSquareAttacked(tempBoard, kingRow, kingCol, movingColor);
 }
 
@@ -466,14 +536,15 @@ const Board& Game::getBoard() const {
 
 bool Game::isCheckmate() const {
     // 1. Aktuális király pozíciója
-    std::pair<int, int> kingPos = (currentTurn == Color::White) ? whiteKingPos : blackKingPos;
+	Color defender = currentTurn==Color::White ? Color::Black : Color::White; // mentés
+    std::pair<int, int> kingPos = (defender == Color::White) ? whiteKingPos : blackKingPos;
 
     // 2. Sakkban van‑e?
-    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, currentTurn);
+    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, defender);
     if (!inCheck) return false;
 
     // 3. Van‑e legális lépés?
-    const auto& coords = (currentTurn == Color::White) ? whitePieceSquares : blackPieceSquares;
+    const auto& coords = (defender == Color::White) ? whitePieceSquares : blackPieceSquares;
     for (auto [r, c] : coords) {
         auto piece = board.getPiece(r, c);
         if (!piece) continue;
@@ -486,14 +557,15 @@ bool Game::isCheckmate() const {
 
 bool Game::isStalemate() const {
     // 1. Aktuális király pozíciója
-    std::pair<int, int> kingPos = (currentTurn == Color::White) ? whiteKingPos : blackKingPos;
+    Color defender = currentTurn == Color::White ? Color::Black : Color::White; // mentés
+    std::pair<int, int> kingPos = (defender == Color::White) ? whiteKingPos : blackKingPos;
 
     // 2. Ha sakkban van, nem lehet pat
-    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, currentTurn);
+    bool inCheck = isSquareAttacked(board, kingPos.first, kingPos.second, defender);
     if (inCheck) return false;
 
     // 3. Van‑e legális lépés?
-    const auto& coords = (currentTurn == Color::White) ? whitePieceSquares : blackPieceSquares;
+    const auto& coords = (defender == Color::White) ? whitePieceSquares : blackPieceSquares;
     for (auto [r, c] : coords) {
         auto piece = board.getPiece(r, c);
         if (!piece) continue;
@@ -504,3 +576,31 @@ bool Game::isStalemate() const {
     return true; // nincs sakk és nincs lépés → pat
 }
 
+std::string Game::debugBoardString() const {
+    std::ostringstream oss;
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            auto piece = board.getPiece(r, c);
+            if (!piece) {
+                oss << ".";
+            }
+            else {
+                char ch = '?';
+                switch (piece->getType()) {
+                case PieceType::King:   ch = 'K'; break;
+                case PieceType::Queen:  ch = 'Q'; break;
+                case PieceType::Rook:   ch = 'R'; break;
+                case PieceType::Bishop: ch = 'B'; break;
+                case PieceType::Knight: ch = 'N'; break;
+                case PieceType::Pawn:   ch = 'P'; break;
+                }
+                if (piece->getColor() == Color::Black)
+                    ch = std::tolower(ch);
+                oss << ch;
+            }
+            oss << " ";
+        }
+        oss << "\n";
+    }
+    return oss.str();
+}

@@ -5,6 +5,22 @@ project(chess_server LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_library(backend
+    backend/logic/Game.cpp
+    backend/logic/Game.h
+    backend/logic/Board.h
+    backend/logic/Move.h
+    backend/logic/pieces/Piece.h
+    backend/logic/pieces/King.h
+    backend/logic/pieces/Pawn.h
+    backend/logic/pieces/Bishop.h
+    backend/logic/pieces/Rook.h
+    backend/logic/pieces/Queen.h
+    backend/logic/pieces/Knight.h
+)
+
+enable_testing()
+
 # Forrásfájlok összegyűjtése
 set(SOURCES
     backend/main.cpp
@@ -56,3 +72,22 @@ target_link_libraries(server
         mswsock
         advapi32
 )
+
+add_executable(basic_piece_tests backend/tests/basic_piece_tests.cpp)
+
+target_link_libraries(basic_piece_tests PRIVATE backend)
+
+add_test(NAME PawnTests   COMMAND basic_piece_tests p)
+add_test(NAME RookTests   COMMAND basic_piece_tests r)
+add_test(NAME KnightTests COMMAND basic_piece_tests k)
+add_test(NAME BishopTests COMMAND basic_piece_tests b)
+add_test(NAME QueenTests  COMMAND basic_piece_tests q)
+add_test(NAME KingTests   COMMAND basic_piece_tests k)
+
+add_executable(special_moves_tests backend/tests/special_moves_tests.cpp)
+
+target_link_libraries(special_moves_tests PRIVATE backend)
+
+add_test(NAME CastlingTests        COMMAND special_moves_tests castle)
+add_test(NAME EnPassantTests       COMMAND special_moves_tests enpassant)
+add_test(NAME PromotionTests       COMMAND special_moves_tests promotion)

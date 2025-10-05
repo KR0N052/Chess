@@ -1,0 +1,170 @@
+Start testing: Oct 05 16:41 Közép-európai nyári idõ
+----------------------------------------------------------
+1/9 Testing: PawnTests
+1/9 Test: PawnTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/basic_piece_tests.exe" "p"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"PawnTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_white_pawn_initial_double_step passed
+test_white_pawn_blocked passed
+test_white_pawn_capture passed
+All pawn tests passed!
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"PawnTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"PawnTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/9 Testing: RookTests
+2/9 Test: RookTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/basic_piece_tests.exe" "r"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"RookTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_rook_open_file passed
+test_rook_blocked_by_own_piece passed
+test_rook_capture_enemy passed
+All rook tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"RookTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"RookTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/9 Testing: KnightTests
+3/9 Test: KnightTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/basic_piece_tests.exe" "k"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"KnightTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_king_open_moves passed
+test_king_blocked_by_own_piece passed
+test_king_capture_enemy passed
+All king tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"KnightTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"KnightTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/9 Testing: BishopTests
+4/9 Test: BishopTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/basic_piece_tests.exe" "b"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"BishopTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_bishop_open_diagonals passed
+test_bishop_blocked_by_own_piece passed
+test_bishop_capture_enemy passed
+All bishop tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"BishopTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"BishopTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/9 Testing: QueenTests
+5/9 Test: QueenTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/basic_piece_tests.exe" "q"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"QueenTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_queen_open_board passed
+test_queen_blocked_by_own_piece passed
+test_queen_capture_enemy passed
+All queen tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"QueenTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"QueenTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/9 Testing: KingTests
+6/9 Test: KingTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/basic_piece_tests.exe" "k"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"KingTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_king_open_moves passed
+test_king_blocked_by_own_piece passed
+test_king_capture_enemy passed
+All king tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"KingTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"KingTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/9 Testing: CastlingTests
+7/9 Test: CastlingTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/special_moves_tests.exe" "castle"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"CastlingTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_kingside_castling_available passed
+test_castling_blocked_by_piece passed
+test_castling_blocked_by_check passed
+All castling tests passed!
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"CastlingTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"CastlingTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/9 Testing: EnPassantTests
+8/9 Test: EnPassantTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/special_moves_tests.exe" "enpassant"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"EnPassantTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_en_passant passed
+All en passant tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"EnPassantTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"EnPassantTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/9 Testing: PromotionTests
+9/9 Test: PromotionTests
+Command: "C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/special_moves_tests.exe" "promotion"
+Directory: C:/Users/melch/OneDrive/Desktop/cpp_ketto/build
+"PromotionTests" start time: Oct 05 16:41 Közép-európai nyári idõ
+Output:
+----------------------------------------------------------
+test_white_pawn_promotion_to_queen passed
+All promotion tests passed!
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"PromotionTests" end time: Oct 05 16:41 Közép-európai nyári idõ
+"PromotionTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 05 16:41 Közép-európai nyári idõ

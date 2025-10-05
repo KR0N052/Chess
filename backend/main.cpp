@@ -90,6 +90,10 @@ int main() {
 
         json response;
         response["success"] = ok;
+
+        std::cout << "DEBUG board after makeMove:\n";
+        std::cout << game.debugBoardString() << std::endl;
+
         response["board"] = boardToJson(game.getBoard());
         response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;
 
@@ -98,13 +102,13 @@ int main() {
             response["moveCode"] = moveCode;
 
             // --- ÚJ: játék vége ellenőrzés ---
-            if (game.isCheckmate()) {
+            if (game.checkMate) {
                 std::cout << "DEBUG: Checkmate detected!\n";
                 response["gameOver"] = true;
                 response["reason"] = "checkmate";
-                response["winner"] = (game.getCurrentTurn() == Color::White) ? "Black" : "White";
+                response["winner"] = (game.getCurrentTurn() == Color::White) ? "Feher" : "Fekete";
             }
-            else if (game.isStalemate()) {
+            else if (game.staleMate) {
                 response["gameOver"] = true;
                 response["reason"] = "stalemate";
                 response["winner"] = "draw";

@@ -115,43 +115,8 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Move.h \
  C:/msys64/ucrt64/include/c++/13.2.0/optional \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/enable_special_members.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Rook.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Knight.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Bishop.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Queen.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/King.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Pawn.h \
- C:/msys64/ucrt64/include/c++/13.2.0/algorithm \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_algo.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/algorithmfwd.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_heap.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/uniform_int_dist.h \
- C:/msys64/ucrt64/include/c++/13.2.0/cstdlib \
- C:/msys64/ucrt64/include/stdlib.h \
- C:/msys64/ucrt64/include/sec_api/stdlib_s.h \
- C:/msys64/ucrt64/include/c++/13.2.0/stdlib.h \
- C:/msys64/ucrt64/include/malloc.h \
- C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/std_abs.h \
- C:/msys64/ucrt64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
- C:/msys64/ucrt64/include/c++/13.2.0/cmath \
- C:/msys64/ucrt64/include/math.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h \
- C:/msys64/ucrt64/include/c++/13.2.0/limits \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/gamma.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/special_function_util.h \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/bessel_function.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/beta_function.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/ell_integral.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/exp_integral.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/hypergeometric.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/legendre_function.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/modified_bessel_func.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_hermite.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_laguerre.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/riemann_zeta.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/iostream \
- C:/msys64/ucrt64/include/c++/13.2.0/ostream \
+ C:/msys64/ucrt64/include/c++/13.2.0/sstream \
+ C:/msys64/ucrt64/include/c++/13.2.0/istream \
  C:/msys64/ucrt64/include/c++/13.2.0/ios \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/char_traits.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/localefwd.h \
@@ -170,6 +135,13 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/string_view \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/string_view.tcc \
  C:/msys64/ucrt64/include/c++/13.2.0/ext/string_conversions.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cstdlib \
+ C:/msys64/ucrt64/include/stdlib.h \
+ C:/msys64/ucrt64/include/sec_api/stdlib_s.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/stdlib.h \
+ C:/msys64/ucrt64/include/malloc.h \
+ C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/13.2.0/include/mm_malloc.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/std_abs.h \
  C:/msys64/ucrt64/include/c++/13.2.0/cstdio \
  C:/msys64/ucrt64/include/c++/13.2.0/cerrno \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/charconv.h \
@@ -189,6 +161,36 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/x86_64-w64-mingw32/bits/ctype_inline.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/locale_facets.tcc \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_ios.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/ostream \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/ostream.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/istream \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/istream.tcc
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/istream.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/sstream.tcc \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Rook.h \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Knight.h \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Bishop.h \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Queen.h \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/King.h \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Pawn.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/algorithm \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_algo.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/algorithmfwd.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_heap.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/uniform_int_dist.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cmath \
+ C:/msys64/ucrt64/include/math.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/limits \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/gamma.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/special_function_util.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/bessel_function.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/beta_function.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/ell_integral.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/exp_integral.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/hypergeometric.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/legendre_function.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/modified_bessel_func.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_hermite.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_laguerre.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/tr1/riemann_zeta.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/iostream

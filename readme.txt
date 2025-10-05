@@ -1,9 +1,9 @@
-cd .. && rm -rf build && mkdir build && cd ./build
+cd .. && rm -rf ./build/* && cd ./build
 cmake -G "MinGW Makefiles" ..
 mingw32-make
 
 
-cpp_crow_add/ 
+cpp_ketto/ 
 ├─ include/ 
 │ ├─ crow/ 
 │ ├─ crow.h 

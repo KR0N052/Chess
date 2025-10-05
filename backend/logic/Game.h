@@ -3,6 +3,8 @@
 #include "Piece.h"
 #include "Move.h"
 #include <optional>
+#include <sstream>
+#include <string>
 
 #define EMPTY 0
 
@@ -12,20 +14,30 @@ class Game {
 public:
     Game();
     void resetBoard();
+    void loadPosition(const std::string& position, Color turn);
+
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
 
+	void updateTurn();
 
     Color getCurrentTurn() const;
     const Board& getBoard() const;
     std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
+    std::string debugBoardString() const;
+
 	bool isCheckmate() const;
 	bool isStalemate() const;
+
+    bool checkMate = false;
+    bool staleMate = false;
 
 private:
     bool fastWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
     bool safeWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
     bool isSquareAttacked(const Board& b, int row, int col, Color defender) const;
+
+
 
     mutable Board board;
     Color currentTurn;
