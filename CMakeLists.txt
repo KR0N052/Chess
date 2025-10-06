@@ -91,3 +91,12 @@ target_link_libraries(special_moves_tests PRIVATE backend)
 add_test(NAME CastlingTests        COMMAND special_moves_tests castle)
 add_test(NAME EnPassantTests       COMMAND special_moves_tests enpassant)
 add_test(NAME PromotionTests       COMMAND special_moves_tests promotion)
+
+add_executable(global_tests backend/tests/global_tests.cpp)
+
+target_link_libraries(global_tests PRIVATE backend)
+
+add_test(NAME CheckMateTest       COMMAND global_tests checkmate)
+add_test(NAME AttackedTest       COMMAND global_tests attacked)
+add_test(NAME StalemateTest       COMMAND global_tests stalemate)
+add_test(NAME WouldBeInCheckTest       COMMAND global_tests wouldbeincheck)
