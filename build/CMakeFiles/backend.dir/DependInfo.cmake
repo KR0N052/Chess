@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Bitboards.cpp" "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj" "gcc" "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj.d"
   "C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Game.cpp" "CMakeFiles/backend.dir/backend/logic/Game.cpp.obj" "gcc" "CMakeFiles/backend.dir/backend/logic/Game.cpp.obj.d"
   )
 

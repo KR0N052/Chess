@@ -17,6 +17,7 @@ void test_white_pawn_initial_double_step() {
     g.loadPosition(pos, Color::White);
 
     auto moves = g.getLegalMoves(6, 1); // fehér pawn a (6,1)-en
+    std::cout << moves.size() << " moves found for white pawn at (6,1)\n";
     assert(moves.size() == 2);          // előre 1 és előre 2
     std::cout << "test_white_pawn_initial_double_step passed\n";
 }
@@ -196,10 +197,10 @@ void test_knight_blocked_by_own_piece() {
         ". . . . . . . .\n"
         ". . . . . . . .\n"
         "P . . . . . . .\n"
-        ". . N . . . . .\n"; // knight (7,2), saját pawn (6,0)
+        ". N . . . . . .\n"; // knight (7,2), saját pawn (6,0)
     g.loadPosition(pos, Color::White);
 
-    auto moves = g.getLegalMoves(7, 2);
+    auto moves = g.getLegalMoves(7, 1);
     bool hitsOwn = false;
     for (auto& m : moves) {
         if (m.toRow == 6 && m.toCol == 0) hitsOwn = true;

@@ -16,7 +16,7 @@ void runAttackedTest() {
         ". . . . . . . .\n"
         "r . . . K . . .\n";
     g.loadPosition(pos, Color::Black);
-    bool isAttacked = g.isSquareAttacked(g.getBoard(), 7, 4, Color::White); // az isCheckMate, isStalemate függvények használják, bemenetként a defender színt várja
+    bool isAttacked = g.isSquareAttacked(g.getBitboard(), 7, 4, Color::White); // az isCheckMate, isStalemate függvények használják, bemenetként a defender színt várja
     assert(isAttacked);
     std::cout << "testSquareAttacked passed\n";
 }
@@ -32,7 +32,7 @@ void runCheckmateTest() {
         ". . . . q . . .\n"
         ". . . . . . . .\n"
         "r . . . K . . .\n";
-	g.loadPosition(pos, Color::Black); //a lépés után ellenőrizzük az ellenfélét, mielőtt átállítjuk a kört, ezért Black
+	g.loadPosition(pos, Color::White); //a lépés után ellenőrizzük az ellenfélét, mielőtt átállítjuk a kört, ezért Black
     bool isCheckmate = g.isCheckmate();
     assert(isCheckmate);
     std::cout << "test Checkmate passed\n";
@@ -49,7 +49,7 @@ void runStalemateTest() {
         ". . . . . . . .\n"
         "r . . . . . r .\n"
         ". . . . . . . K\n";
-    g.loadPosition(pos, Color::Black); //a lépés után ellenőrizzük az ellenfélét, mielőtt átállítjuk a kört, ezért Black
+    g.loadPosition(pos, Color::White); //a lépés után ellenőrizzük az ellenfélét, mielőtt átállítjuk a kört, ezért Black
     bool isStalemate = g.isStalemate();
     assert(isStalemate);
     std::cout << "test Stalemate passed\n";

@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Piece.h"
 #include "Move.h"
+#include "Bitboards.h"
 #include <optional>
 #include <sstream>
 #include <string>
@@ -22,27 +23,26 @@ public:
 
     Color getCurrentTurn() const;
     const Board& getBoard() const;
+	const Bitboard& getBitboard() const;
     std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
     std::string debugBoardString() const;
+    std::string debugBitboardString() const;
 
 	bool isCheckmate() const;
 	bool isStalemate() const;
+    bool isSquareAttacked(const Bitboard& bb, int row, int col, Color defender) const;
 
     bool checkMate = false;
     bool staleMate = false;
 
 private:
-    bool fastWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
-    bool safeWouldBeInCheckAfterMove(int fromRow, int fromCol, int toRow, int toCol) const;
-    bool isSquareAttacked(const Board& b, int row, int col, Color defender) const;
+    bool wouldBeInCheckAfterMove(const Move& move) const;
 
-
+    void applyMove(Bitboard& bb, const Move& m) const;
 
     mutable Board board;
     Color currentTurn;
-    std::pair<int, int> whiteKingPos;
-    std::pair<int, int> blackKingPos;
 
     std::optional<std::pair<int, int>> enPassantTarget;
 
@@ -50,10 +50,6 @@ private:
     void addEnPassantMoves(int row, int col, std::vector<Move>& moves) const;
     void addPromotionMoves(std::vector<Move>& moves) const;
 
-    //aktív bábúk koorddinátái
-    std::vector<std::pair<int, int>> whitePieceSquares;
-    std::vector<std::pair<int, int>> blackPieceSquares;
-
-
-
+	Bitboard bitboard;
+    
 };

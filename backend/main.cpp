@@ -93,6 +93,7 @@ int main() {
 
         std::cout << "DEBUG board after makeMove:\n";
         std::cout << game.debugBoardString() << std::endl;
+		std::cout << game.debugBitboardString() << std::endl;
 
         response["board"] = boardToJson(game.getBoard());
         response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;

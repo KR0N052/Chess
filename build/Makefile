@@ -177,6 +177,46 @@ special_moves_tests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/build
 .PHONY : special_moves_tests/fast
 
+#=============================================================================
+# Target rules for targets named global_tests
+
+# Build rule for target.
+global_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 global_tests
+.PHONY : global_tests
+
+# fast build rule for target.
+global_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/build
+.PHONY : global_tests/fast
+
+backend/logic/Bitboards.obj: backend/logic/Bitboards.cpp.obj
+.PHONY : backend/logic/Bitboards.obj
+
+# target to build an object file
+backend/logic/Bitboards.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Bitboards.cpp.obj
+.PHONY : backend/logic/Bitboards.cpp.obj
+
+backend/logic/Bitboards.i: backend/logic/Bitboards.cpp.i
+.PHONY : backend/logic/Bitboards.i
+
+# target to preprocess a source file
+backend/logic/Bitboards.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Bitboards.cpp.i
+.PHONY : backend/logic/Bitboards.cpp.i
+
+backend/logic/Bitboards.s: backend/logic/Bitboards.cpp.s
+.PHONY : backend/logic/Bitboards.s
+
+# target to generate assembly for a file
+backend/logic/Bitboards.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Bitboards.cpp.s
+.PHONY : backend/logic/Bitboards.cpp.s
+
 backend/logic/Game.obj: backend/logic/Game.cpp.obj
 .PHONY : backend/logic/Game.obj
 
@@ -252,6 +292,30 @@ backend/tests/basic_piece_tests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/backend/tests/basic_piece_tests.cpp.s
 .PHONY : backend/tests/basic_piece_tests.cpp.s
 
+backend/tests/global_tests.obj: backend/tests/global_tests.cpp.obj
+.PHONY : backend/tests/global_tests.obj
+
+# target to build an object file
+backend/tests/global_tests.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/backend/tests/global_tests.cpp.obj
+.PHONY : backend/tests/global_tests.cpp.obj
+
+backend/tests/global_tests.i: backend/tests/global_tests.cpp.i
+.PHONY : backend/tests/global_tests.i
+
+# target to preprocess a source file
+backend/tests/global_tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/backend/tests/global_tests.cpp.i
+.PHONY : backend/tests/global_tests.cpp.i
+
+backend/tests/global_tests.s: backend/tests/global_tests.cpp.s
+.PHONY : backend/tests/global_tests.s
+
+# target to generate assembly for a file
+backend/tests/global_tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/backend/tests/global_tests.cpp.s
+.PHONY : backend/tests/global_tests.cpp.s
+
 backend/tests/special_moves_tests.obj: backend/tests/special_moves_tests.cpp.obj
 .PHONY : backend/tests/special_moves_tests.obj
 
@@ -287,8 +351,12 @@ help:
 	@echo ... test
 	@echo ... backend
 	@echo ... basic_piece_tests
+	@echo ... global_tests
 	@echo ... server
 	@echo ... special_moves_tests
+	@echo ... backend/logic/Bitboards.obj
+	@echo ... backend/logic/Bitboards.i
+	@echo ... backend/logic/Bitboards.s
 	@echo ... backend/logic/Game.obj
 	@echo ... backend/logic/Game.i
 	@echo ... backend/logic/Game.s
@@ -298,6 +366,9 @@ help:
 	@echo ... backend/tests/basic_piece_tests.obj
 	@echo ... backend/tests/basic_piece_tests.i
 	@echo ... backend/tests/basic_piece_tests.s
+	@echo ... backend/tests/global_tests.obj
+	@echo ... backend/tests/global_tests.i
+	@echo ... backend/tests/global_tests.s
 	@echo ... backend/tests/special_moves_tests.obj
 	@echo ... backend/tests/special_moves_tests.i
 	@echo ... backend/tests/special_moves_tests.s

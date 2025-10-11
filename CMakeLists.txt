@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(backend
     backend/logic/Game.cpp
+    backend/logic/Bitboards.cpp
+    backend/logic/Bitboards.h
     backend/logic/Game.h
     backend/logic/Board.h
     backend/logic/Move.h
@@ -25,12 +27,14 @@ enable_testing()
 set(SOURCES
     backend/main.cpp
     backend/logic/Game.cpp
+    backend/logic/Bitboards.cpp
 )
 
 set(HEADERS
     backend/logic/Game.h
     backend/logic/Board.h
     backend/logic/Move.h
+    backend/logic/Bitboards.h
     backend/logic/pieces/Piece.h
     backend/logic/pieces/King.h
     backend/logic/pieces/Pawn.h

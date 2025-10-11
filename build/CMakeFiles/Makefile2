@@ -66,6 +66,7 @@ all: CMakeFiles/backend.dir/all
 all: CMakeFiles/server.dir/all
 all: CMakeFiles/basic_piece_tests.dir/all
 all: CMakeFiles/special_moves_tests.dir/all
+all: CMakeFiles/global_tests.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
@@ -73,6 +74,7 @@ codegen: CMakeFiles/backend.dir/codegen
 codegen: CMakeFiles/server.dir/codegen
 codegen: CMakeFiles/basic_piece_tests.dir/codegen
 codegen: CMakeFiles/special_moves_tests.dir/codegen
+codegen: CMakeFiles/global_tests.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -84,6 +86,7 @@ clean: CMakeFiles/backend.dir/clean
 clean: CMakeFiles/server.dir/clean
 clean: CMakeFiles/basic_piece_tests.dir/clean
 clean: CMakeFiles/special_moves_tests.dir/clean
+clean: CMakeFiles/global_tests.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -93,12 +96,12 @@ clean: CMakeFiles/special_moves_tests.dir/clean
 CMakeFiles/backend.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=1,2 "Built target backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=1,2,3 "Built target backend"
 .PHONY : CMakeFiles/backend.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/backend.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/backend.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 0
 .PHONY : CMakeFiles/backend.dir/rule
@@ -110,7 +113,7 @@ backend: CMakeFiles/backend.dir/rule
 # codegen rule for target.
 CMakeFiles/backend.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=1,2 "Finished codegen for target backend"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=1,2,3 "Finished codegen for target backend"
 .PHONY : CMakeFiles/backend.dir/codegen
 
 # clean rule for target.
@@ -125,12 +128,12 @@ CMakeFiles/backend.dir/clean:
 CMakeFiles/server.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=5,6,7 "Built target server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=8,9,10,11 "Built target server"
 .PHONY : CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 0
 .PHONY : CMakeFiles/server.dir/rule
@@ -142,7 +145,7 @@ server: CMakeFiles/server.dir/rule
 # codegen rule for target.
 CMakeFiles/server.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=5,6,7 "Finished codegen for target server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=8,9,10,11 "Finished codegen for target server"
 .PHONY : CMakeFiles/server.dir/codegen
 
 # clean rule for target.
@@ -157,12 +160,12 @@ CMakeFiles/server.dir/clean:
 CMakeFiles/basic_piece_tests.dir/all: CMakeFiles/backend.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=3,4 "Built target basic_piece_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=4,5 "Built target basic_piece_tests"
 .PHONY : CMakeFiles/basic_piece_tests.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/basic_piece_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/basic_piece_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 0
 .PHONY : CMakeFiles/basic_piece_tests.dir/rule
@@ -174,7 +177,7 @@ basic_piece_tests: CMakeFiles/basic_piece_tests.dir/rule
 # codegen rule for target.
 CMakeFiles/basic_piece_tests.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\basic_piece_tests.dir\build.make CMakeFiles/basic_piece_tests.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=3,4 "Finished codegen for target basic_piece_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=4,5 "Finished codegen for target basic_piece_tests"
 .PHONY : CMakeFiles/basic_piece_tests.dir/codegen
 
 # clean rule for target.
@@ -189,12 +192,12 @@ CMakeFiles/basic_piece_tests.dir/clean:
 CMakeFiles/special_moves_tests.dir/all: CMakeFiles/backend.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=8,9 "Built target special_moves_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=12,13 "Built target special_moves_tests"
 .PHONY : CMakeFiles/special_moves_tests.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/special_moves_tests.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/special_moves_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 0
 .PHONY : CMakeFiles/special_moves_tests.dir/rule
@@ -206,13 +209,45 @@ special_moves_tests: CMakeFiles/special_moves_tests.dir/rule
 # codegen rule for target.
 CMakeFiles/special_moves_tests.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=8,9 "Finished codegen for target special_moves_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=12,13 "Finished codegen for target special_moves_tests"
 .PHONY : CMakeFiles/special_moves_tests.dir/codegen
 
 # clean rule for target.
 CMakeFiles/special_moves_tests.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\special_moves_tests.dir\build.make CMakeFiles/special_moves_tests.dir/clean
 .PHONY : CMakeFiles/special_moves_tests.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/global_tests.dir
+
+# All Build rule for target.
+CMakeFiles/global_tests.dir/all: CMakeFiles/backend.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=6,7 "Built target global_tests"
+.PHONY : CMakeFiles/global_tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/global_tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/global_tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles 0
+.PHONY : CMakeFiles/global_tests.dir/rule
+
+# Convenience name for target.
+global_tests: CMakeFiles/global_tests.dir/rule
+.PHONY : global_tests
+
+# codegen rule for target.
+CMakeFiles/global_tests.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=6,7 "Finished codegen for target global_tests"
+.PHONY : CMakeFiles/global_tests.dir/codegen
+
+# clean rule for target.
+CMakeFiles/global_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/clean
+.PHONY : CMakeFiles/global_tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

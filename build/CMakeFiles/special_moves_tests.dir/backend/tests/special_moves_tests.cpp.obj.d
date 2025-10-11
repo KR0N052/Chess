@@ -166,7 +166,9 @@ CMakeFiles/special_moves_tests.dir/backend/tests/special_moves_tests.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_bvector.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/vector.tcc \
  C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Move.h \
- C:/msys64/ucrt64/include/c++/13.2.0/optional \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/enable_special_members.h \
+ C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Bitboards.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cstdint \
  C:/msys64/ucrt64/include/c++/13.2.0/sstream \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/sstream.tcc
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/sstream.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/optional \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/enable_special_members.h
