@@ -26,4 +26,5 @@ struct Bitboard {
     void resetEmpty();
     void reset();
     void load(const std::string& str);
+    std::string debugString() const;
 };

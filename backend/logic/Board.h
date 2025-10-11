@@ -1,39 +1,28 @@
 // Board.h
 #pragma once
 #include <memory>
-#include "Piece.h"
+#include <string>
+
+class Piece; // előre deklarálás
 
 class Board {
 private:
     std::shared_ptr<Piece> squares[8][8];
 
 public:
-    bool isInside(int row, int col) const {
-        return row >= 0 && row < 8 && col >= 0 && col < 8;
-    }
+    bool isInside(int row, int col) const;
 
-    void clear() {
-        for (auto& row : squares) {
-            for (auto& cell : row) {
-                cell = nullptr;
-            }
-        }
-    }
+    void clear();
 
-    std::shared_ptr<Piece> getPiece(int row, int col) const {
-        return squares[row][col];
-    }
+    std::shared_ptr<Piece> getPiece(int row, int col) const;
 
-    void setPiece(int row, int col, std::shared_ptr<Piece> piece) {
-        squares[row][col] = piece;
-    }
+    void setPiece(int row, int col, std::shared_ptr<Piece> piece);
 
-    void movePiece(int fromRow, int fromCol, int toRow, int toCol) {
-        squares[toRow][toCol] = squares[fromRow][fromCol];
-        squares[fromRow][fromCol] = NULL;
-    }
+    void movePiece(int fromRow, int fromCol, int toRow, int toCol);
 
-    int getSize() const {
-        return 8;
-    }
+    void reset();
+
+    void load(const std::string& str);
+
+    std::string debugString() const;
 };

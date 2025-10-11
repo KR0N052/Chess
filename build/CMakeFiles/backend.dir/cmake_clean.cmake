@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj"
   "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj.d"
+  "CMakeFiles/backend.dir/backend/logic/Board.cpp.obj"
+  "CMakeFiles/backend.dir/backend/logic/Board.cpp.obj.d"
   "CMakeFiles/backend.dir/backend/logic/Game.cpp.obj"
   "CMakeFiles/backend.dir/backend/logic/Game.cpp.obj.d"
   "libbackend.a"

@@ -24,7 +24,7 @@ public:
             if (board.isInside(r, c)) {
                 auto target = board.getPiece(r, c);
                 if (!target || target->getColor() != color) {
-                    moves.push_back({ row, col, r, c });
+                    moves.emplace_back(row, col, r, c);
                 }
             }
         }

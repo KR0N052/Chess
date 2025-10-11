@@ -196,7 +196,6 @@ backend/logic/Bitboards.obj: backend/logic/Bitboards.cpp.obj
 # target to build an object file
 backend/logic/Bitboards.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Bitboards.cpp.obj
 .PHONY : backend/logic/Bitboards.cpp.obj
 
 backend/logic/Bitboards.i: backend/logic/Bitboards.cpp.i
@@ -205,7 +204,6 @@ backend/logic/Bitboards.i: backend/logic/Bitboards.cpp.i
 # target to preprocess a source file
 backend/logic/Bitboards.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Bitboards.cpp.i
 .PHONY : backend/logic/Bitboards.cpp.i
 
 backend/logic/Bitboards.s: backend/logic/Bitboards.cpp.s
@@ -214,8 +212,31 @@ backend/logic/Bitboards.s: backend/logic/Bitboards.cpp.s
 # target to generate assembly for a file
 backend/logic/Bitboards.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Bitboards.cpp.s
 .PHONY : backend/logic/Bitboards.cpp.s
+
+backend/logic/Board.obj: backend/logic/Board.cpp.obj
+.PHONY : backend/logic/Board.obj
+
+# target to build an object file
+backend/logic/Board.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Board.cpp.obj
+.PHONY : backend/logic/Board.cpp.obj
+
+backend/logic/Board.i: backend/logic/Board.cpp.i
+.PHONY : backend/logic/Board.i
+
+# target to preprocess a source file
+backend/logic/Board.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Board.cpp.i
+.PHONY : backend/logic/Board.cpp.i
+
+backend/logic/Board.s: backend/logic/Board.cpp.s
+.PHONY : backend/logic/Board.s
+
+# target to generate assembly for a file
+backend/logic/Board.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Board.cpp.s
+.PHONY : backend/logic/Board.cpp.s
 
 backend/logic/Game.obj: backend/logic/Game.cpp.obj
 .PHONY : backend/logic/Game.obj
@@ -223,7 +244,6 @@ backend/logic/Game.obj: backend/logic/Game.cpp.obj
 # target to build an object file
 backend/logic/Game.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Game.cpp.obj
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.obj
 .PHONY : backend/logic/Game.cpp.obj
 
 backend/logic/Game.i: backend/logic/Game.cpp.i
@@ -232,7 +252,6 @@ backend/logic/Game.i: backend/logic/Game.cpp.i
 # target to preprocess a source file
 backend/logic/Game.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Game.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.i
 .PHONY : backend/logic/Game.cpp.i
 
 backend/logic/Game.s: backend/logic/Game.cpp.s
@@ -241,7 +260,6 @@ backend/logic/Game.s: backend/logic/Game.cpp.s
 # target to generate assembly for a file
 backend/logic/Game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/logic/Game.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/logic/Game.cpp.s
 .PHONY : backend/logic/Game.cpp.s
 
 backend/main.obj: backend/main.cpp.obj
@@ -357,6 +375,9 @@ help:
 	@echo ... backend/logic/Bitboards.obj
 	@echo ... backend/logic/Bitboards.i
 	@echo ... backend/logic/Bitboards.s
+	@echo ... backend/logic/Board.obj
+	@echo ... backend/logic/Board.i
+	@echo ... backend/logic/Board.s
 	@echo ... backend/logic/Game.obj
 	@echo ... backend/logic/Game.i
 	@echo ... backend/logic/Game.s

@@ -1,9 +1,9 @@
 ﻿#include "crow.h"
 #include "logic/Game.h"
+#include "util/Logger.h"
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 
 using json = nlohmann::json;
 
@@ -59,9 +59,9 @@ crow::response serveFile(const std::string& path, const std::string& contentType
 
 int main() {
     crow::SimpleApp app;
-    Game game; // az új Game osztály példánya
+    Game game;
 
-    // Gyökér oldal (index.html)
+    // Gyökér oldal
     CROW_ROUTE(app, "/")([]() {
         return serveFile("../frontend/index.html");
         });
@@ -91,9 +91,10 @@ int main() {
         json response;
         response["success"] = ok;
 
-        std::cout << "DEBUG board after makeMove:\n";
-        std::cout << game.debugBoardString() << std::endl;
-		std::cout << game.debugBitboardString() << std::endl;
+        // --- Logger használat ---
+        Logger::debug("Board after makeMove:");
+        Logger::debug(game.getBoard());
+        Logger::debug(game.getBitboard());
 
         response["board"] = boardToJson(game.getBoard());
         response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;
@@ -102,20 +103,21 @@ int main() {
             std::string moveCode = coordToAlgebraic(fr, fc) + coordToAlgebraic(tr, tc);
             response["moveCode"] = moveCode;
 
-            // --- ÚJ: játék vége ellenőrzés ---
             if (game.checkMate) {
-                std::cout << "DEBUG: Checkmate detected!\n";
+                Logger::info("Checkmate detected!");
                 response["gameOver"] = true;
                 response["reason"] = "checkmate";
                 response["winner"] = (game.getCurrentTurn() == Color::White) ? "Feher" : "Fekete";
             }
             else if (game.staleMate) {
+                Logger::info("Stalemate detected!");
                 response["gameOver"] = true;
                 response["reason"] = "stalemate";
                 response["winner"] = "draw";
             }
         }
         else {
+            Logger::warn("Invalid move attempted.");
             response["error"] = "Érvénytelen lépés";
         }
 
@@ -125,10 +127,11 @@ int main() {
         return res;
         });
 
-
-    // POST /reset → új játék
+    // POST /reset
     CROW_ROUTE(app, "/reset").methods("POST"_method)([&]() {
-        game.resetBoard(); // az új osztály metódusát hívjuk
+        game.reset();
+        Logger::info("Game reset.");
+
         json response;
         response["board"] = boardToJson(game.getBoard());
         response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;
@@ -139,5 +142,6 @@ int main() {
         return res;
         });
 
+    Logger::info("Starting server on port 18080...");
     app.port(18080).multithreaded().run();
 }

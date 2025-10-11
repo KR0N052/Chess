@@ -1,6 +1,5 @@
-CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Game.cpp \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Game.h \
+CMakeFiles/backend.dir/backend/logic/Board.cpp.obj: \
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.h \
  C:/msys64/ucrt64/include/c++/13.2.0/memory \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/memoryfwd.h \
@@ -102,19 +101,6 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/backward/auto_ptr.h \
  C:/msys64/ucrt64/include/c++/13.2.0/pstl/glue_memory_defs.h \
  C:/msys64/ucrt64/include/c++/13.2.0/pstl/execution_defs.h \
- C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/pieces/Piece.h \
- C:/msys64/ucrt64/include/c++/13.2.0/vector \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_vector.h \
- C:/msys64/ucrt64/include/c++/13.2.0/initializer_list \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_bvector.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/range_access.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/vector.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/memory_resource.h \
- C:/msys64/ucrt64/include/c++/13.2.0/cstddef \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator_args.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Move.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Bitboards.h \
- C:/msys64/ucrt64/include/c++/13.2.0/cstdint \
  C:/msys64/ucrt64/include/c++/13.2.0/string \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/char_traits.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/localefwd.h \
@@ -126,6 +112,8 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/ctype.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/ostream_insert.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/cxxabi_forced.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/range_access.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/initializer_list \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_string.h \
  C:/msys64/ucrt64/include/c++/13.2.0/string_view \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/string_view.tcc \
@@ -141,6 +129,9 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/cerrno \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/charconv.h \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/basic_string.tcc \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/memory_resource.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/cstddef \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/uses_allocator_args.h \
  C:/msys64/ucrt64/include/c++/13.2.0/sstream \
  C:/msys64/ucrt64/include/c++/13.2.0/istream \
  C:/msys64/ucrt64/include/c++/13.2.0/ios \
@@ -165,34 +156,15 @@ CMakeFiles/server.dir/backend/logic/Game.cpp.obj: \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/ostream.tcc \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/istream.tcc \
  C:/msys64/ucrt64/include/c++/13.2.0/bits/sstream.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/optional \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/enable_special_members.h \
+ C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/pieces/Piece.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/vector \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_vector.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_bvector.h \
+ C:/msys64/ucrt64/include/c++/13.2.0/bits/vector.tcc \
+ C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Move.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Rook.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Knight.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Bishop.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Queen.h \
  C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/King.h \
- C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Pawn.h \
- C:/msys64/ucrt64/include/c++/13.2.0/algorithm \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_algo.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/algorithmfwd.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/stl_heap.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/uniform_int_dist.h \
- C:/msys64/ucrt64/include/c++/13.2.0/pstl/glue_algorithm_defs.h \
- C:/msys64/ucrt64/include/c++/13.2.0/cmath \
- C:/msys64/ucrt64/include/math.h \
- C:/msys64/ucrt64/include/c++/13.2.0/bits/specfun.h \
- C:/msys64/ucrt64/include/c++/13.2.0/limits \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/gamma.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/special_function_util.h \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/bessel_function.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/beta_function.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/ell_integral.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/exp_integral.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/hypergeometric.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/legendre_function.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/modified_bessel_func.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_hermite.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/poly_laguerre.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/tr1/riemann_zeta.tcc \
- C:/msys64/ucrt64/include/c++/13.2.0/iostream
+ C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\pieces/Pawn.h

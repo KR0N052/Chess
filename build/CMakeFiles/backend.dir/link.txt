@@ -1,2 +1,2 @@
-C:\msys64\ucrt64\bin\ar.exe qc libbackend.a CMakeFiles/backend.dir/backend/logic/Game.cpp.obj CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj
+C:\msys64\ucrt64\bin\ar.exe qc libbackend.a CMakeFiles/backend.dir/backend/logic/Game.cpp.obj CMakeFiles/backend.dir/backend/logic/Board.cpp.obj CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj
 C:\msys64\ucrt64\bin\ranlib.exe libbackend.a

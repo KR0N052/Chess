@@ -14,7 +14,7 @@
 class Game {
 public:
     Game();
-    void resetBoard();
+    void reset();
     void loadPosition(const std::string& position, Color turn);
 
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
@@ -24,10 +24,8 @@ public:
     Color getCurrentTurn() const;
     const Board& getBoard() const;
 	const Bitboard& getBitboard() const;
-    std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
-    std::string debugBoardString() const;
-    std::string debugBitboardString() const;
+    std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
 	bool isCheckmate() const;
 	bool isStalemate() const;

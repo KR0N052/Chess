@@ -97,3 +97,32 @@ void Bitboard::load(const std::string& str) {
     blackPieces = blackPawns | blackKnights | blackBishops | blackRooks | blackQueens | blackKing;
     allPieces = whitePieces | blackPieces;
 }
+
+std::string Bitboard::debugString() const {
+    std::ostringstream oss;
+    oss << "Bitboard state:\n";
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            int sq = r * 8 + c;
+            char ch = '.';
+
+            if (whitePawns & (1ULL << sq)) ch = 'p';
+            else if (whiteKnights & (1ULL << sq)) ch = 'n';
+            else if (whiteBishops & (1ULL << sq)) ch = 'b';
+            else if (whiteRooks & (1ULL << sq)) ch = 'r';
+            else if (whiteQueens & (1ULL << sq)) ch = 'q';
+            else if (whiteKing & (1ULL << sq)) ch = 'k';
+
+            else if (blackPawns & (1ULL << sq)) ch = 'P';
+            else if (blackKnights & (1ULL << sq)) ch = 'N';
+            else if (blackBishops & (1ULL << sq)) ch = 'B';
+            else if (blackRooks & (1ULL << sq)) ch = 'R';
+            else if (blackQueens & (1ULL << sq)) ch = 'Q';
+            else if (blackKing & (1ULL << sq)) ch = 'K';
+
+            oss << ch << " ";
+        }
+        oss << "\n";
+    }
+    return oss.str();
+}

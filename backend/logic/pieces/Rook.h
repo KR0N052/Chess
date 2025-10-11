@@ -3,6 +3,7 @@
 #include "Piece.h"
 #include "Board.h"
 
+
 class Rook : public Piece {
 private:
 	bool moved = false;
@@ -26,11 +27,11 @@ public:
             while (board.isInside(r, c)) {
                 auto target = board.getPiece(r, c);
                 if (!target) {
-                    moves.push_back({ row, col, r, c });
+                    moves.emplace_back(row, col, r, c);
                 }
                 else {
                     if (target->getColor() != color) {
-                        moves.push_back({ row, col, r, c });
+                        moves.emplace_back(row, col, r, c);
                     }
                     break;
                 }

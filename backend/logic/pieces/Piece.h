@@ -1,10 +1,6 @@
 #pragma once
 #include <vector>
-
-enum class Color { White, Black };
-enum class PieceType { King, Queen, Bishop, Knight, Rook, Pawn, None };
-
-struct Move;  // forward declaration
+#include "Move.h"
 
 class Board; // előre deklarálás
 

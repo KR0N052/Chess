@@ -26,7 +26,7 @@ public:
             if ((color == Color::White && row == 6) || (color == Color::Black && row == 1)) {
                 int twoRow = row + 2 * dir;
                 if (!board.getPiece(twoRow, col)) {
-                    moves.push_back({ row, col, twoRow, col });
+                    moves.emplace_back(row, col, twoRow, col);
                 }
             }
         }
@@ -37,7 +37,7 @@ public:
             if (board.isInside(newRow, newCol)) {
                 auto target = board.getPiece(newRow, newCol);
                 if (target && target->getColor() != color) {
-                    moves.push_back({row, col, newRow, newCol });
+                    moves.emplace_back(row, col, newRow, newCol);
                 }
             }
         }

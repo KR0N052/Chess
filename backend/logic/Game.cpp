@@ -7,6 +7,7 @@
 #include "pieces/King.h"
 #include "pieces/Pawn.h"
 #include "Board.h"
+#include "Logger.h"
 #include <algorithm>
 #include <memory>
 #include <vector>
@@ -15,120 +16,34 @@
 
 using namespace std;
 
+bool debugMode = false;
+
 // ---------------- Implementáció ----------------
 Game::Game() {
-    resetBoard();
-}
-
-bool debugMode = true;
-
-const Bitboard& Game::getBitboard() const {
-    return bitboard;
-}   
+    reset();
+} 
 
 void Game::loadPosition(const std::string& position, Color turn) {
-    board.clear();
 
     checkMate = false;
     staleMate= false;
     enPassantTarget.reset();
 
-    std::istringstream iss(position);
-    std::string line;
-    int row = 0;
-
-    while (std::getline(iss, line)) {
-        if (line.empty()) continue;
-
-        std::istringstream lineStream(line);
-        std::string token;
-        int col = 0;
-
-        while (lineStream >> token) {
-            char c = token[0];
-            if (c == '.') {
-                // üres mező
-            }
-            else {
-                Color color = isupper(c) ? Color::White : Color::Black;
-                char pieceChar = static_cast<char>(tolower(c));
-                std::shared_ptr<Piece> piece;
-
-                switch (pieceChar) {
-                case 'k': piece = std::make_shared<King>(color); break;
-                case 'q': piece = std::make_shared<Queen>(color); break;
-                case 'r': piece = std::make_shared<Rook>(color); break;
-                case 'n': piece = std::make_shared<Knight>(color); break;
-                case 'b': piece = std::make_shared<Bishop>(color); break;
-                case 'p': piece = std::make_shared<Pawn>(color); break;
-                default: break;
-                }
-
-                if (piece) {
-                    board.setPiece(row, col, piece);
-                }
-            }
-            ++col;
-        }
-        ++row;
-    }
-
+	board.load(position);
     bitboard.load(position);
 
     currentTurn = turn;
 }
 
-void Game::resetBoard() {
-    board.clear();
+void Game::reset() {
+    checkMate = false;
+	staleMate = false;
+    enPassantTarget.reset();
     
-    // --- Fekete bábuk felül ---
-    board.setPiece(0, 4, std::make_shared<King>(Color::Black));
-
-    board.setPiece(0, 3, std::make_shared<Queen>(Color::Black));
-
-    board.setPiece(0, 0, std::make_shared<Rook>(Color::Black));
-    board.setPiece(0, 7, std::make_shared<Rook>(Color::Black));
-
-    board.setPiece(0, 1, std::make_shared<Knight>(Color::Black));
-    board.setPiece(0, 6, std::make_shared<Knight>(Color::Black));
-
-    board.setPiece(0, 2, std::make_shared<Bishop>(Color::Black));
-    board.setPiece(0, 5, std::make_shared<Bishop>(Color::Black));
-
-    for (int col = 0; col < 8; ++col) {
-        board.setPiece(1, col, std::make_shared<Pawn>(Color::Black));
-    }
-
-    // --- Fehér bábuk alul ---
-    board.setPiece(7, 4, std::make_shared<King>(Color::White));
-
-    board.setPiece(7, 3, std::make_shared<Queen>(Color::White));
-
-    board.setPiece(7, 0, std::make_shared<Rook>(Color::White));
-    board.setPiece(7, 7, std::make_shared<Rook>(Color::White));
-
-    board.setPiece(7, 1, std::make_shared<Knight>(Color::White));
-    board.setPiece(7, 6, std::make_shared<Knight>(Color::White));
-
-    board.setPiece(7, 2, std::make_shared<Bishop>(Color::White));
-    board.setPiece(7, 5, std::make_shared<Bishop>(Color::White));
-
-    for (int col = 0; col < 8; ++col) {
-        board.setPiece(6, col, std::make_shared<Pawn>(Color::White));
-    }
-
-    //bitboard alaphelyzet
+    board.reset();
     bitboard.reset();
 
-    // Fehér kezd
     currentTurn = Color::White;
-
-	//checkmate, stalemate reset
-	checkMate = false;
-	staleMate = false;
-
-    // En passant reset
-    enPassantTarget.reset();
 }
 
 
@@ -612,6 +527,10 @@ const Board& Game::getBoard() const {
 	return board;
 }
 
+const Bitboard& Game::getBitboard() const {
+    return bitboard;
+}
+
 bool Game::isCheckmate() const {
     // 1. Ki a védekező fél?
     Color defender = currentTurn;
@@ -699,68 +618,4 @@ bool Game::isStalemate() const {
     }
 
     return true; // nincs sakk és nincs legális lépés → patt
-}
-
-
-std::string Game::debugBoardString() const {
-    std::ostringstream oss;
-    oss << "Board state: \n";
-    for (int r = 0; r < 8; r++) {
-        for (int c = 0; c < 8; c++) {
-            auto piece = board.getPiece(r, c);
-            if (!piece) {
-                oss << ".";
-            }
-            else {
-                char ch = '?';
-                switch (piece->getType()) {
-                case PieceType::King:   ch = 'K'; break;
-                case PieceType::Queen:  ch = 'Q'; break;
-                case PieceType::Rook:   ch = 'R'; break;
-                case PieceType::Bishop: ch = 'B'; break;
-                case PieceType::Knight: ch = 'N'; break;
-                case PieceType::Pawn:   ch = 'P'; break;
-                }
-                if (piece->getColor() == Color::Black)
-                    ch = std::tolower(ch);
-                oss << ch;
-            }
-            oss << " ";
-        }
-        oss << "\n";
-    }
-    return oss.str();
-}
-
-std::string Game::debugBitboardString() const {
-    std::ostringstream oss;
-    oss << "Bitboard state:\n";
-
-    for (int r = 0; r < 8; r++) {
-        for (int c = 0; c < 8; c++) {
-            int sq = r * 8 + c;
-            char ch = '.'; // üres mező
-
-            // White pieces
-            if (bitboard.whitePawns & (1ULL << sq)) ch = 'p';
-            else if (bitboard.whiteKnights & (1ULL << sq)) ch = 'n';
-            else if (bitboard.whiteBishops & (1ULL << sq)) ch = 'b';
-            else if (bitboard.whiteRooks & (1ULL << sq)) ch = 'r';
-            else if (bitboard.whiteQueens & (1ULL << sq)) ch = 'q';
-            else if (bitboard.whiteKing & (1ULL << sq)) ch = 'k';
-
-            // Black pieces (kisbetűvel)
-            else if (bitboard.blackPawns & (1ULL << sq)) ch = 'P';
-            else if (bitboard.blackKnights & (1ULL << sq)) ch = 'N';
-            else if (bitboard.blackBishops & (1ULL << sq)) ch = 'B';
-            else if (bitboard.blackRooks & (1ULL << sq)) ch = 'R';
-            else if (bitboard.blackQueens & (1ULL << sq)) ch = 'Q';
-            else if (bitboard.blackKing & (1ULL << sq)) ch = 'K';
-
-            oss << ch << " ";
-        }
-        oss << "\n";
-    }
-
-    return oss.str();
 }

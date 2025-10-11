@@ -29,7 +29,7 @@ public:
             if (board.isInside(newRow, newCol)) {
                 auto target = board.getPiece(newRow, newCol);
                 if (!target || target->getColor() != color) {
-                    moves.push_back({ row, col, newRow, newCol });
+                    moves.emplace_back(row, col, newRow, newCol);
                 }
             }
         }

@@ -1,8 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/server.dir/backend/logic/Bitboards.cpp.obj"
-  "CMakeFiles/server.dir/backend/logic/Bitboards.cpp.obj.d"
-  "CMakeFiles/server.dir/backend/logic/Game.cpp.obj"
-  "CMakeFiles/server.dir/backend/logic/Game.cpp.obj.d"
   "CMakeFiles/server.dir/backend/main.cpp.obj"
   "CMakeFiles/server.dir/backend/main.cpp.obj.d"
   "libserver.dll.a"

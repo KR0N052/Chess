@@ -86,11 +86,26 @@ CMakeFiles/backend.dir/backend/logic/Game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/backend.dir/backend/logic/Game.cpp.s"
 	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Game.cpp -o CMakeFiles\backend.dir\backend\logic\Game.cpp.s
 
+CMakeFiles/backend.dir/backend/logic/Board.cpp.obj: CMakeFiles/backend.dir/flags.make
+CMakeFiles/backend.dir/backend/logic/Board.cpp.obj: CMakeFiles/backend.dir/includes_CXX.rsp
+CMakeFiles/backend.dir/backend/logic/Board.cpp.obj: C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Board.cpp
+CMakeFiles/backend.dir/backend/logic/Board.cpp.obj: CMakeFiles/backend.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/backend.dir/backend/logic/Board.cpp.obj"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/backend.dir/backend/logic/Board.cpp.obj -MF CMakeFiles\backend.dir\backend\logic\Board.cpp.obj.d -o CMakeFiles\backend.dir\backend\logic\Board.cpp.obj -c C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp
+
+CMakeFiles/backend.dir/backend/logic/Board.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/backend.dir/backend/logic/Board.cpp.i"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp > CMakeFiles\backend.dir\backend\logic\Board.cpp.i
+
+CMakeFiles/backend.dir/backend/logic/Board.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/backend.dir/backend/logic/Board.cpp.s"
+	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Board.cpp -o CMakeFiles\backend.dir\backend\logic\Board.cpp.s
+
 CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj: CMakeFiles/backend.dir/flags.make
 CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj: CMakeFiles/backend.dir/includes_CXX.rsp
 CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj: C:/Users/melch/OneDrive/Desktop/cpp_ketto/backend/logic/Bitboards.cpp
 CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj: CMakeFiles/backend.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj"
 	C:\msys64\ucrt64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj -MF CMakeFiles\backend.dir\backend\logic\Bitboards.cpp.obj.d -o CMakeFiles\backend.dir\backend\logic\Bitboards.cpp.obj -c C:\Users\melch\OneDrive\Desktop\cpp_ketto\backend\logic\Bitboards.cpp
 
 CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.i: cmake_force
@@ -104,16 +119,18 @@ CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.s: cmake_force
 # Object files for target backend
 backend_OBJECTS = \
 "CMakeFiles/backend.dir/backend/logic/Game.cpp.obj" \
+"CMakeFiles/backend.dir/backend/logic/Board.cpp.obj" \
 "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj"
 
 # External object files for target backend
 backend_EXTERNAL_OBJECTS =
 
 libbackend.a: CMakeFiles/backend.dir/backend/logic/Game.cpp.obj
+libbackend.a: CMakeFiles/backend.dir/backend/logic/Board.cpp.obj
 libbackend.a: CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj
 libbackend.a: CMakeFiles/backend.dir/build.make
 libbackend.a: CMakeFiles/backend.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libbackend.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\melch\OneDrive\Desktop\cpp_ketto\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libbackend.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\backend.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\backend.dir\link.txt --verbose=$(VERBOSE)
 
