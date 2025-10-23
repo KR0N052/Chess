@@ -1,5 +1,5 @@
 #pragma once
-#include "pieces/Piece.h"
+
 
 enum class Color { White, Black };
 enum class PieceType { King, Queen, Bishop, Knight, Rook, Pawn, None };

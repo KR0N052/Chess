@@ -69,24 +69,10 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     if (!found) return false;
 
     // 3. Board frissítése
-    if (chosenMove.isCastle) {
-        int dir = (toCol > fromCol) ? 1 : -1;
-        int rookCol = (dir == 1) ? 7 : 0;
-        int rookTargetCol = fromCol + dir;
-        board.movePiece(fromRow, fromCol, toRow, toCol);             // király
-        board.movePiece(fromRow, rookCol, fromRow, rookTargetCol);   // bástya
-    }
-    else if (chosenMove.isEnPassant) {
-        board.movePiece(fromRow, fromCol, toRow, toCol);
-        // levett gyalog törlése a tábláról
-        board.setPiece(fromRow, toCol, nullptr);
-    }
-    else {
-        board.movePiece(fromRow, fromCol, toRow, toCol);
-    }
+	board.applyMove(chosenMove);
 
     // 4. Bitboard frissítése az applyMove segítségével
-    applyMove(bitboard, chosenMove);
+	bitboard.applyMove(chosenMove);
 
     // 5. Promóció (fixen vezér)
     auto movedPiece = board.getPiece(toRow, toCol);
@@ -133,6 +119,65 @@ bool Game::makeMove(int fromRow, int fromCol, int toRow, int toCol) {
     return true;
 }
 
+bool Game::applyMove(const Move& chosenMove) {
+	// Ez a függvény feltételezi, hogy a chosenMove már ellenőrzött és legális lépés
+    int fromRow = chosenMove.fromRow;
+	int fromCol = chosenMove.fromCol;
+	int toRow = chosenMove.toRow;
+	int toCol = chosenMove.toCol;
+
+	 // 3. Board frissítése
+    board.applyMove(chosenMove);
+
+    // 4. Bitboard frissítése az applyMove segítségével
+    bitboard.applyMove(chosenMove);
+
+    // 5. Promóció (fixen vezér)
+    auto movedPiece = board.getPiece(toRow, toCol);
+    if (movedPiece && movedPiece->getType() == PieceType::Pawn) {
+        int promotionRow = (movedPiece->getColor() == Color::White) ? 0 : 7;
+        if (toRow == promotionRow) {
+            auto newQueen = std::make_shared<Queen>(movedPiece->getColor());
+            board.setPiece(toRow, toCol, newQueen);
+            movedPiece = newQueen;
+            // Bitboard promóciós részét az applyMove már kezeli, ha a Move‑ban be van állítva a promotion flag
+        }
+    }
+
+    // 6. Flag-ek frissítése
+    if (movedPiece) {
+        if (movedPiece->getType() == PieceType::King) {
+            static_cast<King*>(movedPiece.get())->setMoved(true);
+        }
+        else if (movedPiece->getType() == PieceType::Rook) {
+            static_cast<Rook*>(movedPiece.get())->setMoved(true);
+        }
+    }
+
+    // 7. En passant target
+    enPassantTarget.reset();
+    if (movedPiece && movedPiece->getType() == PieceType::Pawn) {
+        if (std::abs(toRow - fromRow) == 2) {
+            int midRow = (fromRow + toRow) / 2;
+            enPassantTarget = { midRow, toCol };
+        }
+    }
+
+    // 8. Játék vége ellenőrzés
+    if (isCheckmate()) {
+        checkMate = true;
+    }
+    else if (isStalemate()) {
+        staleMate = true;
+    }
+    else {
+        updateTurn();
+    }
+
+    return true;
+
+}
+
 void Game::updateTurn() {
     currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
 }
@@ -165,13 +210,9 @@ std::vector<Move> Game::getLegalMoves(int fromRow, int fromCol) const {
 			legalMoves.push_back(move); // sáncolásnál már ellenőriztük a sakkot (neki spéci szabály van)
         }
         else{
-			std::cout << "Ellenőrzés alatt lévő lépés: (" << move.fromRow << "," << move.fromCol << ") -> (" << move.toRow << "," << move.toCol << ")\n";
             if (!wouldBeInCheckAfterMove(move)) {
                 legalMoves.push_back(move);
 			}
-            else {
-                std::cout << "Lépés sakkot eredményezne, kihagyva.\n";
-            }
         }
     }
 
@@ -262,139 +303,6 @@ void Game::addPromotionMoves(std::vector<Move>& moves) const {
 
 }
 
-void Game::applyMove(Bitboard& bb, const Move& m) const {
-    int fromSq = m.fromRow * 8 + m.fromCol;
-    int toSq = m.toRow * 8 + m.toCol;
-
-    uint64_t fromMask = ~(1ULL << fromSq);
-    uint64_t toMask = (1ULL << toSq);
-
-    // --- Mozgó bábu színének és típusának meghatározása ---
-    Color movingColor;
-    PieceType pieceType = PieceType::None;
-    uint64_t mask = (1ULL << fromSq);
-
-    if (bb.whitePawns & mask) { movingColor = Color::White; pieceType = PieceType::Pawn; }
-    else if (bb.whiteKnights & mask) { movingColor = Color::White; pieceType = PieceType::Knight; }
-    else if (bb.whiteBishops & mask) { movingColor = Color::White; pieceType = PieceType::Bishop; }
-    else if (bb.whiteRooks & mask) { movingColor = Color::White; pieceType = PieceType::Rook; }
-    else if (bb.whiteQueens & mask) { movingColor = Color::White; pieceType = PieceType::Queen; }
-    else if (bb.whiteKing & mask) { movingColor = Color::White; pieceType = PieceType::King; }
-    else if (bb.blackPawns & mask) { movingColor = Color::Black; pieceType = PieceType::Pawn; }
-    else if (bb.blackKnights & mask) { movingColor = Color::Black; pieceType = PieceType::Knight; }
-    else if (bb.blackBishops & mask) { movingColor = Color::Black; pieceType = PieceType::Bishop; }
-    else if (bb.blackRooks & mask) { movingColor = Color::Black; pieceType = PieceType::Rook; }
-    else if (bb.blackQueens & mask) { movingColor = Color::Black; pieceType = PieceType::Queen; }
-    else if (bb.blackKing & mask) { movingColor = Color::Black; pieceType = PieceType::King; }
-
-    // --- Capture (normál vagy EP) ---
-    if (m.isEnPassant) {
-        int capSq = m.fromRow * 8 + m.toCol;
-        uint64_t capMask = ~(1ULL << capSq);
-        if (movingColor == Color::White) {
-            bb.blackPawns &= capMask;
-            bb.blackPieces &= capMask;
-        }
-        else {
-            bb.whitePawns &= capMask;
-            bb.whitePieces &= capMask;
-        }
-    }
-    else {
-        uint64_t toMaskInv = ~toMask;
-        if (bb.allPieces & toMask) {
-            if (movingColor == Color::White) {
-                bb.blackPawns &= toMaskInv;
-                bb.blackKnights &= toMaskInv;
-                bb.blackBishops &= toMaskInv;
-                bb.blackRooks &= toMaskInv;
-                bb.blackQueens &= toMaskInv;
-                bb.blackKing &= toMaskInv;
-                bb.blackPieces &= toMaskInv;
-            }
-            else {
-                bb.whitePawns &= toMaskInv;
-                bb.whiteKnights &= toMaskInv;
-                bb.whiteBishops &= toMaskInv;
-                bb.whiteRooks &= toMaskInv;
-                bb.whiteQueens &= toMaskInv;
-                bb.whiteKing &= toMaskInv;
-                bb.whitePieces &= toMaskInv;
-            }
-        }
-    }
-
-    // --- Castle speciális ---
-    if (m.isCastle) {
-        int dir = (m.toCol > m.fromCol) ? 1 : -1;
-        int rookCol = (dir == 1) ? 7 : 0;
-        int rookTargetCol = m.fromCol + dir;
-
-        int rookFromSq = m.fromRow * 8 + rookCol;
-        int rookToSq = m.fromRow * 8 + rookTargetCol;
-
-        uint64_t rookFromMask = ~(1ULL << rookFromSq);
-        uint64_t rookToMask = (1ULL << rookToSq);
-
-        if (movingColor == Color::White) {
-            bb.whiteRooks &= rookFromMask;
-            bb.whiteRooks |= rookToMask;
-            bb.whitePieces &= rookFromMask;
-            bb.whitePieces |= rookToMask;
-        }
-        else {
-            bb.blackRooks &= rookFromMask;
-            bb.blackRooks |= rookToMask;
-            bb.blackPieces &= rookFromMask;
-            bb.blackPieces |= rookToMask;
-        }
-    }
-
-    // --- Mozgatás a típus bitboardban ---
-    if (movingColor == Color::White) {
-        switch (pieceType) {
-        case PieceType::Pawn:   bb.whitePawns &= fromMask; bb.whitePawns |= toMask; break;
-        case PieceType::Knight: bb.whiteKnights &= fromMask; bb.whiteKnights |= toMask; break;
-        case PieceType::Bishop: bb.whiteBishops &= fromMask; bb.whiteBishops |= toMask; break;
-        case PieceType::Rook:   bb.whiteRooks &= fromMask; bb.whiteRooks |= toMask; break;
-        case PieceType::Queen:  bb.whiteQueens &= fromMask; bb.whiteQueens |= toMask; break;
-        case PieceType::King:   bb.whiteKing &= fromMask; bb.whiteKing |= toMask; break;
-        default: break;
-        }
-        bb.whitePieces &= fromMask;
-        bb.whitePieces |= toMask;
-    }
-    else {
-        switch (pieceType) {
-        case PieceType::Pawn:   bb.blackPawns &= fromMask; bb.blackPawns |= toMask; break;
-        case PieceType::Knight: bb.blackKnights &= fromMask; bb.blackKnights |= toMask; break;
-        case PieceType::Bishop: bb.blackBishops &= fromMask; bb.blackBishops |= toMask; break;
-        case PieceType::Rook:   bb.blackRooks &= fromMask; bb.blackRooks |= toMask; break;
-        case PieceType::Queen:  bb.blackQueens &= fromMask; bb.blackQueens |= toMask; break;
-        case PieceType::King:   bb.blackKing &= fromMask; bb.blackKing |= toMask; break;
-        default: break;
-        }
-        bb.blackPieces &= fromMask;
-        bb.blackPieces |= toMask;
-    }
-
-    // --- Promóció ---
-    if (m.isPromotion()) {
-        uint64_t maskTo = (1ULL << toSq);
-        if (movingColor == Color::White) {
-            bb.whitePawns &= ~maskTo;
-            bb.whiteQueens |= maskTo;
-        }
-        else {
-            bb.blackPawns &= ~maskTo;
-            bb.blackQueens |= maskTo;
-        }
-    }
-
-    // --- allPieces frissítés ---
-    bb.allPieces = bb.whitePieces | bb.blackPieces;
-}
-
 bool Game::wouldBeInCheckAfterMove(const Move& move) const {
     // 1) Temp bitboard az aktuálisból
     Bitboard temp = bitboard;
@@ -406,12 +314,12 @@ bool Game::wouldBeInCheckAfterMove(const Move& move) const {
         (bitboard.whitePieces & fromBit) ? Color::White : Color::Black;
 
     // 3) Lépés alkalmazása a temp bitboardon
-    applyMove(temp, move);
+    temp.applyMove(move);
 
     // 4) Király pozíció a lépés UTÁNI állapotban (temp)
     int kingSq;
     if (movingColor == Color::White) {
-        if (temp.whiteKing == 0ULL) return false; // hibás állapot → tekintsük sakkban
+        if (temp.whiteKing == 0ULL) return false; // hibás állapot → tekintsük nincs sakk-nak
         kingSq = __builtin_ctzll(temp.whiteKing);
     }
     else {
@@ -426,8 +334,6 @@ bool Game::wouldBeInCheckAfterMove(const Move& move) const {
     return isSquareAttacked(temp, kingRow, kingCol, movingColor);
 }
 
-
-
 bool Game::isSquareAttacked(const Bitboard& bb, int row, int col, Color defender) const {
     int sq = row * 8 + col;
     uint64_t sqMask = (1ULL << sq);
@@ -438,15 +344,15 @@ bool Game::isSquareAttacked(const Bitboard& bb, int row, int col, Color defender
     if (attacker == Color::White) {
         // fehér gyalog támadási maszk (felfelé bal/jobb)
         uint64_t pawnAttacks = 0ULL;
-        if (col > 0 && row > 0) pawnAttacks |= (1ULL << ((row - 1) * 8 + (col - 1)));
-        if (col < 7 && row > 0) pawnAttacks |= (1ULL << ((row - 1) * 8 + (col + 1)));
+        if (col > 0 && row < 7) pawnAttacks |= (1ULL << ((row + 1) * 8 + (col - 1)));
+        if (col < 7 && row < 7) pawnAttacks |= (1ULL << ((row + 1) * 8 + (col + 1)));
         if (pawnAttacks & bb.whitePawns) return true;
     }
     else {
         // fekete gyalog támadási maszk (lefelé bal/jobb)
         uint64_t pawnAttacks = 0ULL;
-        if (col > 0 && row < 7) pawnAttacks |= (1ULL << ((row + 1) * 8 + (col - 1)));
-        if (col < 7 && row < 7) pawnAttacks |= (1ULL << ((row + 1) * 8 + (col + 1)));
+        if (col > 0 && row > 0) pawnAttacks |= (1ULL << ((row - 1) * 8 + (col - 1)));
+        if (col < 7 && row > 0) pawnAttacks |= (1ULL << ((row - 1) * 8 + (col + 1)));
         if (pawnAttacks & bb.blackPawns) return true;
     }
 
@@ -516,20 +422,6 @@ bool Game::isSquareAttacked(const Bitboard& bb, int row, int col, Color defender
     return false;
 }
 
-
-
-Color Game::getCurrentTurn() const {
-	return currentTurn;
-}
-
-
-const Board& Game::getBoard() const {
-	return board;
-}
-
-const Bitboard& Game::getBitboard() const {
-    return bitboard;
-}
 
 bool Game::isCheckmate() const {
     // 1. Ki a védekező fél?
@@ -618,4 +510,28 @@ bool Game::isStalemate() const {
     }
 
     return true; // nincs sakk és nincs legális lépés → patt
+}
+
+
+
+
+Color Game::getCurrentTurn() const {
+    return currentTurn;
+}
+
+
+const Board& Game::getBoard() const {
+    return board;
+}
+
+const Bitboard& Game::getBitboard() const {
+    return bitboard;
+}
+
+const uint64_t Game::getWhitePieces() const {
+    return bitboard.whitePieces;
+}
+   
+const uint64_t Game::getBlackPieces() const {
+    return bitboard.blackPieces;
 }

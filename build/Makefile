@@ -190,6 +190,67 @@ global_tests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\global_tests.dir\build.make CMakeFiles/global_tests.dir/build
 .PHONY : global_tests/fast
 
+#=============================================================================
+# Target rules for targets named agent_tests
+
+# Build rule for target.
+agent_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 agent_tests
+.PHONY : agent_tests
+
+# fast build rule for target.
+agent_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\agent_tests.dir\build.make CMakeFiles/agent_tests.dir/build
+.PHONY : agent_tests/fast
+
+backend/agent/MCTSAgent.obj: backend/agent/MCTSAgent.cpp.obj
+.PHONY : backend/agent/MCTSAgent.obj
+
+# target to build an object file
+backend/agent/MCTSAgent.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/agent/MCTSAgent.cpp.obj
+.PHONY : backend/agent/MCTSAgent.cpp.obj
+
+backend/agent/MCTSAgent.i: backend/agent/MCTSAgent.cpp.i
+.PHONY : backend/agent/MCTSAgent.i
+
+# target to preprocess a source file
+backend/agent/MCTSAgent.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/agent/MCTSAgent.cpp.i
+.PHONY : backend/agent/MCTSAgent.cpp.i
+
+backend/agent/MCTSAgent.s: backend/agent/MCTSAgent.cpp.s
+.PHONY : backend/agent/MCTSAgent.s
+
+# target to generate assembly for a file
+backend/agent/MCTSAgent.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/agent/MCTSAgent.cpp.s
+.PHONY : backend/agent/MCTSAgent.cpp.s
+
+backend/agent/MCTSNode.obj: backend/agent/MCTSNode.cpp.obj
+.PHONY : backend/agent/MCTSNode.obj
+
+# target to build an object file
+backend/agent/MCTSNode.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/agent/MCTSNode.cpp.obj
+.PHONY : backend/agent/MCTSNode.cpp.obj
+
+backend/agent/MCTSNode.i: backend/agent/MCTSNode.cpp.i
+.PHONY : backend/agent/MCTSNode.i
+
+# target to preprocess a source file
+backend/agent/MCTSNode.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/agent/MCTSNode.cpp.i
+.PHONY : backend/agent/MCTSNode.cpp.i
+
+backend/agent/MCTSNode.s: backend/agent/MCTSNode.cpp.s
+.PHONY : backend/agent/MCTSNode.s
+
+# target to generate assembly for a file
+backend/agent/MCTSNode.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\backend.dir\build.make CMakeFiles/backend.dir/backend/agent/MCTSNode.cpp.s
+.PHONY : backend/agent/MCTSNode.cpp.s
+
 backend/logic/Bitboards.obj: backend/logic/Bitboards.cpp.obj
 .PHONY : backend/logic/Bitboards.obj
 
@@ -286,6 +347,30 @@ backend/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\server.dir\build.make CMakeFiles/server.dir/backend/main.cpp.s
 .PHONY : backend/main.cpp.s
 
+backend/tests/agent_tests.obj: backend/tests/agent_tests.cpp.obj
+.PHONY : backend/tests/agent_tests.obj
+
+# target to build an object file
+backend/tests/agent_tests.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\agent_tests.dir\build.make CMakeFiles/agent_tests.dir/backend/tests/agent_tests.cpp.obj
+.PHONY : backend/tests/agent_tests.cpp.obj
+
+backend/tests/agent_tests.i: backend/tests/agent_tests.cpp.i
+.PHONY : backend/tests/agent_tests.i
+
+# target to preprocess a source file
+backend/tests/agent_tests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\agent_tests.dir\build.make CMakeFiles/agent_tests.dir/backend/tests/agent_tests.cpp.i
+.PHONY : backend/tests/agent_tests.cpp.i
+
+backend/tests/agent_tests.s: backend/tests/agent_tests.cpp.s
+.PHONY : backend/tests/agent_tests.s
+
+# target to generate assembly for a file
+backend/tests/agent_tests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\agent_tests.dir\build.make CMakeFiles/agent_tests.dir/backend/tests/agent_tests.cpp.s
+.PHONY : backend/tests/agent_tests.cpp.s
+
 backend/tests/basic_piece_tests.obj: backend/tests/basic_piece_tests.cpp.obj
 .PHONY : backend/tests/basic_piece_tests.obj
 
@@ -367,11 +452,18 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... test
+	@echo ... agent_tests
 	@echo ... backend
 	@echo ... basic_piece_tests
 	@echo ... global_tests
 	@echo ... server
 	@echo ... special_moves_tests
+	@echo ... backend/agent/MCTSAgent.obj
+	@echo ... backend/agent/MCTSAgent.i
+	@echo ... backend/agent/MCTSAgent.s
+	@echo ... backend/agent/MCTSNode.obj
+	@echo ... backend/agent/MCTSNode.i
+	@echo ... backend/agent/MCTSNode.s
 	@echo ... backend/logic/Bitboards.obj
 	@echo ... backend/logic/Bitboards.i
 	@echo ... backend/logic/Bitboards.s
@@ -384,6 +476,9 @@ help:
 	@echo ... backend/main.obj
 	@echo ... backend/main.i
 	@echo ... backend/main.s
+	@echo ... backend/tests/agent_tests.obj
+	@echo ... backend/tests/agent_tests.i
+	@echo ... backend/tests/agent_tests.s
 	@echo ... backend/tests/basic_piece_tests.obj
 	@echo ... backend/tests/basic_piece_tests.i
 	@echo ... backend/tests/basic_piece_tests.s

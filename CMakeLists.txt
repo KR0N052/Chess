@@ -11,11 +11,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(backend
     backend/logic/Game.cpp
     backend/logic/Board.cpp
+    backend/agent/MCTSNode.cpp
     backend/logic/Bitboards.cpp
- "backend/util/Logger.h")
+    backend/agent/MCTSAgent.cpp
+)
 
 # Header fájlok csak IDE miatt (nem fordulnak külön)
 target_sources(backend PRIVATE
+    backend/util/Logger.h
+    backend/agent/MCTSAgent.h
+    backend/agent/MCTSNode.h
     backend/logic/Game.h
     backend/logic/Board.h
     backend/logic/Move.h
@@ -33,6 +38,7 @@ target_sources(backend PRIVATE
 target_include_directories(backend PUBLIC
     ${CMAKE_SOURCE_DIR}/backend/logic
     ${CMAKE_SOURCE_DIR}/backend/util
+    ${CMAKE_SOURCE_DIR}/backend/agent
     ${CMAKE_SOURCE_DIR}/backend/logic/pieces
     ${CMAKE_SOURCE_DIR}/include
 )
@@ -42,7 +48,7 @@ target_include_directories(backend PUBLIC
 # =========================
 add_executable(server
     backend/main.cpp
- "backend/util/Logger.h")
+)
 
 target_link_libraries(server PRIVATE backend)
 
@@ -79,15 +85,21 @@ add_test(NAME BishopTests COMMAND basic_piece_tests b)
 add_test(NAME QueenTests  COMMAND basic_piece_tests q)
 add_test(NAME KingTests   COMMAND basic_piece_tests k)
 
-add_executable(special_moves_tests backend/tests/special_moves_tests.cpp "backend/util/Logger.h")
+add_executable(special_moves_tests backend/tests/special_moves_tests.cpp "backend/util/Logger.h" )
 target_link_libraries(special_moves_tests PRIVATE backend)
 add_test(NAME CastlingTests   COMMAND special_moves_tests castle)
 add_test(NAME EnPassantTests  COMMAND special_moves_tests enpassant)
 add_test(NAME PromotionTests  COMMAND special_moves_tests promotion)
 
-add_executable(global_tests backend/tests/global_tests.cpp "backend/util/Logger.h")
+add_executable(global_tests backend/tests/global_tests.cpp "backend/util/Logger.h" )
 target_link_libraries(global_tests PRIVATE backend)
 add_test(NAME CheckMateTest     COMMAND global_tests checkmate)
 add_test(NAME AttackedTest      COMMAND global_tests attacked)
 add_test(NAME StalemateTest     COMMAND global_tests stalemate)
 add_test(NAME WouldBeInCheckTest COMMAND global_tests wouldbeincheck)
+
+add_executable(agent_tests backend/tests/agent_tests.cpp "backend/util/Logger.h" )
+target_link_libraries(agent_tests PRIVATE backend)
+add_test(NAME MCTSTest COMMAND agent_tests mcts)
+
+set_tests_properties(MCTSTest PROPERTIES PASS_REGULAR_EXPRESSION ".*")

@@ -20,6 +20,8 @@ public:
 
     void movePiece(int fromRow, int fromCol, int toRow, int toCol);
 
+    void applyMove(const struct Move& move);
+
     void reset();
 
     void load(const std::string& str);

@@ -19,7 +19,8 @@
 						1,
 						2,
 						3,
-						4
+						4,
+						5
 					]
 				}
 			],
@@ -38,7 +39,8 @@
 						1,
 						2,
 						3,
-						4
+						4,
+						5
 					]
 				}
 			],
@@ -46,36 +48,43 @@
 			[
 				{
 					"directoryIndex" : 0,
+					"id" : "agent_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-agent_tests-Debug-d5ee3397756417197519.json",
+					"name" : "agent_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "backend::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-backend-Debug-14cd8b05087801e11e09.json",
+					"jsonFile" : "target-backend-Debug-a86f9a92405e2d3d8abd.json",
 					"name" : "backend",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "basic_piece_tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-basic_piece_tests-Debug-180e9229c5455e1e19cb.json",
+					"jsonFile" : "target-basic_piece_tests-Debug-09940cf208f5cce1698f.json",
 					"name" : "basic_piece_tests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "global_tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-global_tests-Debug-60c4f28fbb02cb5c9e0c.json",
+					"jsonFile" : "target-global_tests-Debug-1c12473f514bc2e9da20.json",
 					"name" : "global_tests",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "server::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-server-Debug-acd74fc9d20934697ad8.json",
+					"jsonFile" : "target-server-Debug-0dd72f63b02f2c078a1f.json",
 					"name" : "server",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "special_moves_tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-special_moves_tests-Debug-bfa0d870fea5d4928926.json",
+					"jsonFile" : "target-special_moves_tests-Debug-9d091b22987b3a1efa1e.json",
 					"name" : "special_moves_tests",
 					"projectIndex" : 0
 				}

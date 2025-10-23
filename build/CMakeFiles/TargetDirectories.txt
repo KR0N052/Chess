@@ -3,6 +3,7 @@ C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/server.dir
 C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/basic_piece_tests.dir
 C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/special_moves_tests.dir
 C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/global_tests.dir
+C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/agent_tests.dir
 C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/test.dir
 C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/edit_cache.dir
 C:/Users/melch/OneDrive/Desktop/cpp_ketto/build/CMakeFiles/rebuild_cache.dir

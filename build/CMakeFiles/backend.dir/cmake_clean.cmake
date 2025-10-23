@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/backend.dir/backend/agent/MCTSAgent.cpp.obj"
+  "CMakeFiles/backend.dir/backend/agent/MCTSAgent.cpp.obj.d"
+  "CMakeFiles/backend.dir/backend/agent/MCTSNode.cpp.obj"
+  "CMakeFiles/backend.dir/backend/agent/MCTSNode.cpp.obj.d"
   "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj"
   "CMakeFiles/backend.dir/backend/logic/Bitboards.cpp.obj.d"
   "CMakeFiles/backend.dir/backend/logic/Board.cpp.obj"

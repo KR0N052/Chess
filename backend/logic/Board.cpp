@@ -148,3 +148,24 @@ std::string Board::debugString() const {
     }
     return oss.str();
 }
+
+void Board::applyMove(const class Move& move) {
+	// csak és kizárólag érvényes lépést szabad neki adni!!!
+    if (move.isCastle) {
+        int dir = (move.toCol > move.fromCol) ? 1 : -1;
+        int rookCol = (dir == 1) ? 7 : 0;
+        int rookTargetCol = move.fromCol + dir;
+        movePiece(move.fromRow, move.fromCol, move.toRow, move.toCol);   // király
+        movePiece(move.fromRow, rookCol, move.fromRow, rookTargetCol);   // bástya
+        return;
+    } 
+    else if(move.isEnPassant) {
+        movePiece(move.fromRow, move.fromCol, move.toRow, move.toCol);
+        // levett gyalog törlése a tábláról
+        setPiece(move.fromRow, move.toCol, nullptr);
+        return;
+    }
+    else {
+        movePiece(move.fromRow, move.fromCol, move.toRow, move.toCol);
+    }
+}

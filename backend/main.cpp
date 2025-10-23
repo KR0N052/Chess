@@ -1,5 +1,5 @@
 ﻿#include "crow.h"
-#include "logic/Game.h"
+#include "agent/MCTSAgent.h"
 #include "util/Logger.h"
 #include <nlohmann/json.hpp>
 #include <fstream>
@@ -59,7 +59,10 @@ crow::response serveFile(const std::string& path, const std::string& contentType
 
 int main() {
     crow::SimpleApp app;
-    Game game;
+
+    MCTSAgent agent;
+
+	Game* game = agent.getGame();
 
     // Gyökér oldal
     CROW_ROUTE(app, "/")([]() {
@@ -69,8 +72,8 @@ int main() {
     // GET /state
     CROW_ROUTE(app, "/state")([&]() {
         json response;
-        response["board"] = boardToJson(game.getBoard());
-        response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;
+        response["board"] = boardToJson(game->getBoard());
+        response["currentPlayer"] = (game->getCurrentTurn() == Color::White) ? 0 : 1;
 
         crow::response res(response.dump());
         res.set_header("Content-Type", "application/json; charset=utf-8");
@@ -80,40 +83,83 @@ int main() {
 
     // POST /move
     CROW_ROUTE(app, "/move").methods("POST"_method)([&](const crow::request& req) {
+        int fr, fc, tr, tc;
         auto body = json::parse(req.body);
-        int fr = body["fromRow"];
-        int fc = body["fromCol"];
-        int tr = body["toRow"];
-        int tc = body["toCol"];
-
-        bool ok = game.makeMove(fr, fc, tr, tc);
+        fr = body["fromRow"];
+        fc = body["fromCol"];
+        tr = body["toRow"];
+        tc = body["toCol"];
 
         json response;
+
+        // --- Játékos lépése ---
+        bool ok = game->makeMove(fr, fc, tr, tc);
         response["success"] = ok;
 
-        // --- Logger használat ---
-        Logger::debug("Board after makeMove:");
-        Logger::debug(game.getBoard());
-        Logger::debug(game.getBitboard());
+        Logger::debug("Board after player move:");
+        Logger::debug(game->getBoard());
+        Logger::debug(game->getBitboard());
 
-        response["board"] = boardToJson(game.getBoard());
-        response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;
+        response["board"] = boardToJson(game->getBoard());
+        response["currentPlayer"] = (game->getCurrentTurn() == Color::White) ? 0 : 1;
 
         if (ok) {
             std::string moveCode = coordToAlgebraic(fr, fc) + coordToAlgebraic(tr, tc);
-            response["moveCode"] = moveCode;
+            response["playerMove"] = moveCode;
 
-            if (game.checkMate) {
+            if (game->checkMate) {
                 Logger::info("Checkmate detected!");
                 response["gameOver"] = true;
                 response["reason"] = "checkmate";
-                response["winner"] = (game.getCurrentTurn() == Color::White) ? "Feher" : "Fekete";
+                response["winner"] = (game->getCurrentTurn() == Color::White) ? "Feher" : "Fekete";
             }
-            else if (game.staleMate) {
+            else if (game->staleMate) {
                 Logger::info("Stalemate detected!");
                 response["gameOver"] = true;
                 response["reason"] = "stalemate";
                 response["winner"] = "draw";
+            }
+            else {
+                // --- Csak akkor lép az AI, ha a játékos lépése érvényes volt ---
+                Move m = agent.chooseMove();
+                if(m.fromCol == -1) {
+                    Logger::info("AI has no legal moves!");
+                    response["gameOver"] = true;
+                    if (game->isCheckmate()) {
+                        response["reason"] = "checkmate";
+                        response["winner"] = (game->getCurrentTurn() == Color::White) ? "Fekete" : "Fehér";
+                    } else {
+                        response["reason"] = "stalemate";
+                        response["winner"] = "draw";
+                    }
+					return crow::response(response.dump());
+				}
+                bool aiOk = game->applyMove(m);
+
+                Logger::debug("Board after AI move:");
+                Logger::debug(game->getBoard());
+                Logger::debug(game->getBitboard());
+
+                response["board"] = boardToJson(game->getBoard());
+                response["currentPlayer"] = (game->getCurrentTurn() == Color::White) ? 0 : 1;
+
+                if (aiOk) {
+                    std::string aiMoveCode = coordToAlgebraic(m.fromRow, m.fromCol) + coordToAlgebraic(m.toRow, m.toCol);
+                    response["aiMove"] = aiMoveCode;
+
+                    if (game->checkMate) {
+                        Logger::info("Checkmate detected!");
+                        response["gameOver"] = true;
+                        response["reason"] = "checkmate";
+                        response["winner"] = (game->getCurrentTurn() == Color::White) ? "Feher" : "Fekete";
+                    }
+                    else if (game->staleMate) {
+                        Logger::info("Stalemate detected!");
+                        response["gameOver"] = true;
+                        response["reason"] = "stalemate";
+                        response["winner"] = "draw";
+                    }
+                }
             }
         }
         else {
@@ -127,14 +173,15 @@ int main() {
         return res;
         });
 
+
     // POST /reset
     CROW_ROUTE(app, "/reset").methods("POST"_method)([&]() {
-        game.reset();
+        game->reset();
         Logger::info("Game reset.");
 
         json response;
-        response["board"] = boardToJson(game.getBoard());
-        response["currentPlayer"] = (game.getCurrentTurn() == Color::White) ? 0 : 1;
+        response["board"] = boardToJson(game->getBoard());
+        response["currentPlayer"] = (game->getCurrentTurn() == Color::White) ? 0 : 1;
 
         crow::response res(response.dump());
         res.set_header("Content-Type", "application/json; charset=utf-8");

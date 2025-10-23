@@ -27,4 +27,5 @@ struct Bitboard {
     void reset();
     void load(const std::string& str);
     std::string debugString() const;
+	void applyMove(const struct Move& m);
 };

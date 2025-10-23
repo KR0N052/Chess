@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Board.h"
 #include "Piece.h"
@@ -18,12 +19,16 @@ public:
     void loadPosition(const std::string& position, Color turn);
 
     bool makeMove(int fromRow, int fromCol, int toRow, int toCol);
+	bool applyMove(const Move& chosenMove);
 
 	void updateTurn();
 
     Color getCurrentTurn() const;
     const Board& getBoard() const;
 	const Bitboard& getBitboard() const;
+
+	const uint64_t getWhitePieces() const;
+	const uint64_t getBlackPieces() const;
 
     std::vector<Move> getLegalMoves(int fromRow, int fromCol) const;
 
@@ -36,8 +41,6 @@ public:
 
 private:
     bool wouldBeInCheckAfterMove(const Move& move) const;
-
-    void applyMove(Bitboard& bb, const Move& m) const;
 
     mutable Board board;
     Color currentTurn;
